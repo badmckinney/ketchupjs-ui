@@ -2,6 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const redis = require('connect-redis')(session);
+const passport = require('passport');
+const bcrypt = require('bcryptjs');
+const LocalStrategy = require('passport-local');
+
+const Client = require('../database/models/Client');
+
+const auth = require('./routes/auth.js');
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
 const SESSION_SECRET = process.env.SESSION_SECRET || 'mudkip';
@@ -37,6 +44,8 @@ app.use(
     saveUninitialized: false
   })
 );
+
+app.use('/auth', auth);
 
 app.listen(PORT, () => {
   console.log(`Server is armed and dangerous on: ${PORT}`);
