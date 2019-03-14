@@ -45,8 +45,55 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((client, done) => {
+  return done(null, {
+    id: client.id,
+    username: client.username
+  });
+});
+
+passport.deserializeUser((client, done) => {
+  new Client({ id: client.id })
+    .fetch()
+    .then(client => {
+      client = client.toJSON();
+      return done(null, {
+        id: client.id,
+        username: client.username
+      });
+    })
+    .catch(err => {
+      return done(err);
+    });
+});
+
+passport.use(
+  new LocalStrategy(function (username, password, done) {
+    return Client.query(qb => {
+      qb.whereRaw(`LOWER(username) LIKE ?`, [username]);
+    })
+      .fetch()
+      .then(client => {
+        if (client === null) { return done(null, false); }
+        else {
+          client = client.toJSON();
+          bcrypt.compare(password, client.password).then(res => {
+            if (res) { return done(null, client); }
+            else { return done(null, false); }
+          });
+        }
+      })
+      .catch(err => {
+        return done(err);
+      });
+  })
+);
+
 app.use('/auth', auth);
 
 app.listen(PORT, () => {
   console.log(`Server is armed and dangerous on: ${PORT}`);
-})
+});
