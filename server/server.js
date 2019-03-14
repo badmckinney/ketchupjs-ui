@@ -5,8 +5,7 @@ const redis = require('connect-redis')(session);
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
 const SESSION_SECRET = process.env.SESSION_SECRET || 'mudkip';
-const REDIS_HOST_PORT = process.env.REDIS_HOST_PORT;
-const REDIS_URL = process.env.REDIS_URL;
+const REDIS_URL = `${process.env.REDIS_URL}:${process.env.REDIS_HOST_PORT}`;
 const ENV = process.env.NODE_ENV || 'development';
 
 if (!PORT) {
@@ -30,7 +29,7 @@ app.use(bodyParser.json());
 app.use(
   session({
     store: new redis({
-      url: `${REDIS_URL}:${REDIS_HOST_PORT}`,
+      url: REDIS_URL,
       logErrors: true
     }),
     secret: SESSION_SECRET,
