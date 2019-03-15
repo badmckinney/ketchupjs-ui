@@ -13,28 +13,28 @@ router.post('/register', (req, res) => {
 
   bcrypt.genSalt(saltRounds, (err, salt) => {
     if (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
 
-    bcrypt.hash(newUser.password, salt, function (err, hash) {
+    bcrypt.hash(newClient.password, salt, function (err, hash) {
       if (err) {
-        res.status(500).json(err);
+        return res.status(500).json(err);
       }
 
       const key = uuidAPIKey.create();
 
       return new Client({
-        key: key.uuid,
         name: newClient.name,
         username: newClient.username,
-        password: hash
+        password: hash,
+        key: key.uuid
       })
         .save()
         .then(() => {
-          return res.json({ apiKey: key.apiKey });
+          return res.json({ success: true, apiKey: key.apiKey });
         })
         .catch(err => {
-          return res.json(500).json(err);
+          return res.status(500).json(err);
         });
     });
   });
