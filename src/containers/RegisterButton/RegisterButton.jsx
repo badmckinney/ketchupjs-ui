@@ -17,19 +17,20 @@ class RegisterButton extends Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  openModal(e) {
-    e.preventDefault();
+  openModal() {
     this.setState({ modalIsOpen: true });
+    document.querySelector('.app').classList.add('blur');
   }
 
   closeModal() {
     this.setState({ modalIsOpen: false });
+    document.querySelector('.app').classList.remove('blur');
   }
 
   render() {
     return (
       <>
-        <button className="register" onClick={this.openModal}>Create an account</button>
+        <button className="register" onClick={this.openModal}>Register</button>
         <Modal
           className="modal"
           overlayClassName="overlay"

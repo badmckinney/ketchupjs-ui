@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Register.scss';
+import { register } from '../../actions/index';
 
 class Register extends Component {
   constructor(props) {

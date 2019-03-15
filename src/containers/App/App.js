@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+//import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.scss';
+
+import Header from '../../components/Header';
 
 class App extends Component {
   constructor(props) {
@@ -12,8 +14,10 @@ class App extends Component {
 
   render() {
     return (
-      <></>
-    )
+      <div className="app">
+        <Header />
+      </div>
+    );
   }
 }
 
