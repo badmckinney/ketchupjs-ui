@@ -19,9 +19,13 @@
   "homepage": "https://github.com/badmckinney/ketchupjs-ui#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "bookshelf": "^0.14.2",
     "connect-redis": "^3.4.1",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "nodemon": "^1.18.10"
+    "knex": "^0.13.0",
+    "nodemon": "^1.18.10",
+    "pg": "^7.8.2"
   }
 }
