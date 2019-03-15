@@ -7,4 +7,4 @@ class Event extends bookshelf.Model {
   client() { return this.hasOne('Client', 'id', 'client_id'); }
 }
 
-module.exports = bookshelf.Model('Event', Event);
+module.exports = bookshelf.model('Event', Event);
