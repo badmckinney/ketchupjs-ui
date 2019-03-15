@@ -30,7 +30,8 @@ router.get('/names', (req, res) => {
 router.get('/feature', (req, res) => {
   Client.fetchAll({ columns: ['id'] })
     .then(ids => {
-      feature = ids.slice(Math.floor(Math.random * ids.length + 1), 1);
+      ids = ids.models;
+      feature = ids.slice(Math.floor(Math.random * ids.length + 1), 1)[0].attributes.id;
       Event.where('client_id', feature)
         .fetchAll({ withRelated: ['client'] })
         .then(events => res.json({ events: events }))
