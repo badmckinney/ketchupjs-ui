@@ -13,31 +13,25 @@ class RegisterButton extends Component {
       modalIsOpen: false
     };
 
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
-  openModal(e) {
-    e.preventDefault();
-    this.setState({ modalIsOpen: true });
-  }
-
-  closeModal() {
-    this.setState({ modalIsOpen: false });
+  toggleModal() {
+    this.setState({ modalIsOpen: !this.modalIsOpen });
   }
 
   render() {
     return (
       <>
-        <button className="register" onClick={this.openModal}>Create an account</button>
+        <button className="register" onClick={this.toggleModal}>Create an account</button>
         <Modal
           className="modal"
           overlayClassName="overlay"
           isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
+          onRequestClose={this.toggleModal}
           contentLabel="Register Form"
           shouldCloseOnOverlayClick={true}>
-          <Register close={this.closeModal} />
+          <Register close={this.toggleModal} />
         </Modal>
       </>
     )
