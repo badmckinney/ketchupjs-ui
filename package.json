@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "dev": "./node_modules/nodemon/bin/nodemon.js ./server/server.js"
   },
   "repository": {
@@ -27,11 +30,26 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "knex": "^0.13.0",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.8.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-modal": "^3.8.1",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.8",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "uuid-apikey": "^1.4.2"
   },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "proxy": "http://localhost:8000"
 }
