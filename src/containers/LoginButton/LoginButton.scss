@@ -110,6 +110,7 @@ html {
               background: $primary-color;
               font-size: 1em;
               font-weight: 600;
+              transition: background-color 0.25s ease-in-out;
             }
 
             .login:hover {
