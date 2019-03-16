@@ -8,7 +8,7 @@ const LocalStrategy = require('passport-local');
 
 const Client = require('../database/models/Client');
 
-const auth = require('./routes/auth.js');
+const { auth, data } = require('./routes');
 
 const PORT = process.env.EXPRESS_CONTAINER_PORT;
 const SESSION_SECRET = process.env.SESSION_SECRET || 'mudkip';
@@ -92,7 +92,7 @@ passport.use(
   })
 );
 
-app.use('/auth', auth);
+app.use('/api', auth, data);
 
 app.listen(PORT, () => {
   console.log(`Server is armed and dangerous on: ${PORT}`);

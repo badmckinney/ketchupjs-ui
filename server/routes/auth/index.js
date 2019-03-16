@@ -4,7 +4,7 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const uuidAPIKey = require('uuid-apikey');
 
-const Client = require('../../database/models/Client');
+const Client = require('../../../database/models/Client');
 
 const saltRounds = 12;
 
