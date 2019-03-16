@@ -32,7 +32,7 @@ class LoginButton extends Component {
       <>
         <button className="login" onClick={this.openModal}>Login</button>
         <Modal
-          className="modal"
+          className="login-modal"
           overlayClassName="overlay"
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}

@@ -32,7 +32,7 @@ class RegisterButton extends Component {
       <>
         <button className="register" onClick={this.openModal}>Register</button>
         <Modal
-          className="modal"
+          className="register-modal"
           overlayClassName="overlay"
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
