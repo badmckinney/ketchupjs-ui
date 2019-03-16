@@ -69,7 +69,7 @@ class Register extends Component {
             </button>
           </div>
           <div className="login-here">
-            Already have an account? Login here
+            Already have an account? Login
           </div>
         </form>
       </div>
