@@ -41,8 +41,7 @@ class Register extends Component {
             placeholder="Name"
             value={this.state.name}
             onChange={this.handleInputOnChange}
-            required
-            pattern="[A-Za-z]{1,30}" />
+            required />
           <input
             type="text"
             name="username"
@@ -50,18 +49,14 @@ class Register extends Component {
             placeholder="Username"
             value={this.state.username}
             onChange={this.handleInputOnChange}
-            onKeyUp={this.checkUniqueUsername}
-            required
-            pattern="[A-Za-z0-9_]{6,30}" />
+            required />
           <input
             type="password"
             name="password"
             placeholder="Password"
             value={this.state.password}
             onChange={this.handleInputOnChange}
-            required
-            minLength="6"
-            maxLength="30" />
+            required />
 
           <div className="btn-container">
             <button className="btn" onClick={this.handleSubmit}>

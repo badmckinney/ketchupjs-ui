@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header currentUser={this.props.currentUser} />
         <Footer />
       </div>
     );
@@ -24,7 +24,9 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    currentUser: state.currentUser
+  };
 };
 
 const mapDispatchToProps = dispatch => {
