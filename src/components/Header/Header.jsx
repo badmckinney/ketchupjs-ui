@@ -6,10 +6,11 @@ import LoginButton from '../../containers/LoginButton';
 const Header = (props) => {
   return (
     <div className="header">
-      <img src="" alt="ketchupjs logo" />
-      <div className="logotype">ketchupjs</div>
-      <LoginButton />
-      <RegisterButton />
+      <img src="/assets/KetchupJS.png" alt="ketchupjs logo" />
+      <div className="btn-wrapper">
+        <LoginButton />
+        <RegisterButton />
+      </div>
     </div>
   )
 };

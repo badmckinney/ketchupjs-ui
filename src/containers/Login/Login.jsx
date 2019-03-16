@@ -33,7 +33,7 @@ class Login extends Component {
     return (
       <div className="login">
         <form className="login_form">
-          <h1>Login</h1>
+          <h1> </h1>
           <input
             type="text"
             name="username"
