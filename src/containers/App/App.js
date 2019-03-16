@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './App.scss';
 
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
     return (
       <div className="app">
         <Header />
+        <Footer />
       </div>
     );
   }

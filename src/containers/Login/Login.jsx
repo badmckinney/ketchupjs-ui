@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Register.scss';
-import { register } from '../../actions/index';
+import './Login.scss';
+import { login } from '../../actions/index';
 
-class Register extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: '',
       username: '',
       password: ''
     };
@@ -26,23 +25,15 @@ class Register extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newClient = this.state;
-    this.props.register(newClient);
+    const client = this.state;
+    this.props.login(client);
   }
 
   render() {
     return (
-      <div className="register">
-        <form className="register_form">
-          <h1>Sign Up</h1>
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={this.state.name}
-            onChange={this.handleInputOnChange}
-            required
-            pattern="[A-Za-z]{1,30}" />
+      <div className="login">
+        <form className="login_form">
+          <h1>Login</h1>
           <input
             type="text"
             name="username"
@@ -50,7 +41,6 @@ class Register extends Component {
             placeholder="Username"
             value={this.state.username}
             onChange={this.handleInputOnChange}
-            onKeyUp={this.checkUniqueUsername}
             required
             pattern="[A-Za-z0-9_]{6,30}" />
           <input
@@ -65,11 +55,11 @@ class Register extends Component {
 
           <div className="btn-container">
             <button className="btn" onClick={this.handleSubmit}>
-              Register
+              Login
             </button>
           </div>
-          <div className="login-here">
-            Already have an account? Login
+          <div className="register-here">
+            Don't have an account? Sign up
           </div>
         </form>
       </div>
@@ -79,13 +69,13 @@ class Register extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    register: newClient => dispatch(register(newClient))
+    login: client => dispatch(login(client))
   }
 }
 
-Register = connect(
+Login = connect(
   null,
   mapDispatchToProps
-)(Register);
+)(Login);
 
-export default Register;
+export default Login;
