@@ -34,7 +34,7 @@ class Register extends Component {
     return (
       <div className="register">
         <form className="register_form">
-          <h1>Sign Up</h1>
+          <h1> </h1>
           <input
             type="text"
             name="name"

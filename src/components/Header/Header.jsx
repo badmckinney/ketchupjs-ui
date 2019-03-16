@@ -6,7 +6,7 @@ import LoginButton from '../../containers/LoginButton';
 const Header = (props) => {
   return (
     <div className="header">
-      <img src="" alt="ketchupjs logo" />
+      <img src="/assets/KetchupJS.png" alt="ketchupjs logo" />
       <div className="btn-wrapper">
         <LoginButton />
         <RegisterButton />
