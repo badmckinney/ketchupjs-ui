@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 html {
   body {
     .ReactModalPortal {
@@ -15,6 +17,28 @@ html {
     #root {
       .blur {
         filter: blur(2px);
+      }
+
+      .app {
+        .header {
+          .btn-wrapper {
+            .register {
+              height: 40px;
+              width: 80px;
+              border: 1px solid $secondary-color;
+              border-radius: 6px;
+              color: #fff;
+              background: $primary-color;
+              font-size: 1em;
+              font-weight: 600;
+              margin-left: 15px;
+            }
+
+            .register:hover {
+              background: $secondary-color;
+            }
+          }
+        }
       }
     }
   }

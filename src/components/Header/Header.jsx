@@ -7,9 +7,10 @@ const Header = (props) => {
   return (
     <div className="header">
       <img src="" alt="ketchupjs logo" />
-      <div className="logotype">ketchupjs</div>
-      <LoginButton />
-      <RegisterButton />
+      <div className="btn-wrapper">
+        <LoginButton />
+        <RegisterButton />
+      </div>
     </div>
   )
 };

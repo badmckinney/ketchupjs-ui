@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 html {
   body {
     .ReactModalPortal {
@@ -8,13 +10,34 @@ html {
         left: 0;
         bottom: 0;
         z-index: 1;
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: $overlay-color;
       }
     }
 
     #root {
       .blur {
         filter: blur(2px);
+      }
+
+      .app {
+        .header {
+          .btn-wrapper {
+            .login {
+              height: 40px;
+              width: 80px;
+              border: 1px solid $secondary-color;
+              border-radius: 6px;
+              color: #fff;
+              background: $primary-color;
+              font-size: 1em;
+              font-weight: 600;
+            }
+
+            .login:hover {
+              background: $secondary-color;
+            }
+          }
+        }
       }
     }
   }

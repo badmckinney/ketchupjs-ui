@@ -1,0 +1,18 @@
+@import '../../index.scss';
+
+html {
+  body {
+    #root {
+      .app {
+        .header {
+          background:$primary-color;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 60px;
+          padding: 0px 15px;
+        }
+      }
+    }
+  }
+}
