@@ -41,7 +41,6 @@ class Login extends Component {
             placeholder="Username"
             value={this.state.username}
             onChange={this.handleInputOnChange}
-            onKeyUp={this.checkUniqueUsername}
             required
             pattern="[A-Za-z0-9_]{6,30}" />
           <input

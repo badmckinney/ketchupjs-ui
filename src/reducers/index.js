@@ -2,7 +2,9 @@ import {
   LOGIN
 } from '../actions';
 
-const initialState = {};
+const initialState = {
+  currentUser: localStorage.getItem('client')
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
