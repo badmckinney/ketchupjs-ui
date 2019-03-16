@@ -1,5 +1,6 @@
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
+export const EDIT_PROFILE = 'EDIT_PROFILE';
 
 export const register = newClient => {
   return () => {
@@ -34,6 +35,27 @@ export const login = client => {
         });
 
         return true
+      })
+      .catch(err => false);
+  }
+};
+
+export const editProfile = updatedInfo => {
+  return dispatch => {
+    return fetch('/api/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedInfo)
+    })
+      .then(res => {
+        if (res.status !== 200) { throw new Error('Error editing profile'); }
+
+        dispatch({
+          type: EDIT_PROFILE,
+          payload: updatedInfo.username
+        });
+
+        return true;
       })
       .catch(err => false);
   }
