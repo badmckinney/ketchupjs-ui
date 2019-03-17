@@ -1,0 +1,29 @@
+@import '../../index.scss';
+
+html {
+  body {
+    #root {
+      .app {
+        .header {
+          .btn-wrapper {
+            .logout {
+              height: 40px;
+              width: 80px;
+              border: 1px solid $secondary-color;
+              border-radius: 6px;
+              color: #fff;
+              background: $primary-color;
+              font-size: 1em;
+              font-weight: 600;
+              transition: background-color 0.25s ease-in-out;
+            }
+
+            .logout:hover {
+              background: $secondary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

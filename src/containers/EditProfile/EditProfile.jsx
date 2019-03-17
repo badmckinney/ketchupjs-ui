@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Register.scss';
-import { register } from '../../actions/index';
+import './EditProfile.scss';
+import { editProfile } from '../../actions/index';
 
-class Register extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: '',
       username: '',
-      password: ''
     };
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
@@ -26,14 +25,14 @@ class Register extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newClient = this.state;
-    this.props.register(newClient);
+    const updatedInfo = this.state;
+    this.props.editProfile(updatedInfo);
   }
 
   render() {
     return (
-      <div className="register">
-        <form className="register_form">
+      <div className="edit-profile">
+        <form className="edit-profile_form">
           <h1> </h1>
           <input
             type="text"
@@ -41,30 +40,22 @@ class Register extends Component {
             placeholder="Name"
             value={this.state.name}
             onChange={this.handleInputOnChange}
-            required />
+            required
+            pattern="[A-Za-z]{1,30}" />
           <input
             type="text"
             name="username"
-            className="nested-input"
             placeholder="Username"
             value={this.state.username}
             onChange={this.handleInputOnChange}
-            required />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleInputOnChange}
-            required />
+            onKeyUp={this.checkUniqueUsername}
+            required
+            pattern="[A-Za-z0-9_]{6,30}" />
 
           <div className="btn-container">
             <button className="btn" onClick={this.handleSubmit}>
-              Register
+              Submit
             </button>
-          </div>
-          <div className="login-here">
-            Already have an account? Login
           </div>
         </form>
       </div>
@@ -74,13 +65,13 @@ class Register extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    register: newClient => dispatch(register(newClient))
+    editProfile: updatedInfo => dispatch(EditProfile(updatedInfo))
   }
 }
 
-Register = connect(
+EditProfile = connect(
   null,
   mapDispatchToProps
-)(Register);
+)(EditProfile);
 
-export default Register;
+export default EditProfile;

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import Login from '../Login';
-import './LoginButton.scss';
+import EditProfile from '../EditProfile';
+import './EditProfileButton.scss';
 
 Modal.setAppElement('#root');
 
-class LoginButton extends Component {
+class EditProfileButton extends Component {
   constructor(props) {
     super(props);
 
@@ -23,26 +23,26 @@ class LoginButton extends Component {
   }
 
   closeModal() {
-    document.querySelector('.app').classList.remove('blur');
     this.setState({ modalIsOpen: false });
+    document.querySelector('.app').classList.remove('blur');
   }
 
   render() {
     return (
       <>
-        <button className="login" onClick={this.openModal}>Login</button>
+        <button className="edit-profile" onClick={this.openModal}>Edit</button>
         <Modal
-          className="login-modal"
+          className="edit-profile-modal"
           overlayClassName="overlay"
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
-          contentLabel="Login Form"
+          contentLabel="Edit Profile Form"
           shouldCloseOnOverlayClick={true}>
-          <Login close={this.closeModal} />
+          <EditProfile close={this.closeModal} />
         </Modal>
       </>
     )
   }
 }
 
-export default LoginButton;
+export default EditProfileButton;
