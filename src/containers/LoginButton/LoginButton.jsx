@@ -23,8 +23,8 @@ class LoginButton extends Component {
   }
 
   closeModal() {
-    this.setState({ modalIsOpen: false });
     document.querySelector('.app').classList.remove('blur');
+    this.setState({ modalIsOpen: false });
   }
 
   render() {
