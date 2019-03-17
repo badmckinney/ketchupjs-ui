@@ -5,23 +5,18 @@ import LoginButton from '../../containers/LoginButton';
 import LogoutButton from '../../containers/LogoutButton';
 
 const Header = (props) => {
-  if (props.currentUser) {
-
-    return (
-      <div className="header">
-        <img src="/assets/KetchupJS.png" alt="ketchupjs logo" />
-        <div className="btn-wrapper">
-          <LogoutButton />
-        </div>
-      </div>
-    )
-  }
   return (
     <div className="header">
       <img src="/assets/KetchupJS.png" alt="ketchupjs logo" />
       <div className="btn-wrapper">
-        <LoginButton />
-        <RegisterButton />
+        {props.currentUser ?
+          <LogoutButton />
+          :
+          <>
+            <LoginButton />
+            <RegisterButton />
+          </>
+        }
       </div>
     </div>
   )
