@@ -22,7 +22,7 @@ router.get('/profile', (req, res) => {
 });
 
 router.get('/names', (req, res) => {
-  Client.fetchAll({ columns: ['name'] })
+  Client.fetchAll({ columns: ['name', 'id'] })
     .then(names => res.json({ names: names }))
     .catch(err => res.status(500).json(err));
 });

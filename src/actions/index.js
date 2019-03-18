@@ -1,5 +1,6 @@
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
+export const LOAD_CLIENTS = 'LOAD_CLIENTS';
 
 export const register = newClient => {
   return () => {
@@ -31,6 +32,28 @@ export const login = client => {
         dispatch({
           type: LOGIN,
           payload: res.username
+        });
+
+        return true
+      })
+      .catch(err => false);
+  }
+};
+
+export const getClients = () => {
+  console.log('loadclients');
+
+  return dispatch => {
+    return fetch('/api/names')
+      .then(res => {
+        if (res.status === 500) { throw new Error('Server Error'); }
+        return res.json({ success: true });
+      })
+      .then(res => {
+        console.log(res)
+        dispatch({
+          type: LOAD_CLIENTS,
+          payload: res.names
         });
 
         return true

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-//import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.scss';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+// import Home from '../../components/Home';
+// import Profile from '../../containers/Profile';
+import Feed from '../../containers/Feed';
+// import Client from '../../containers/Client';
 
 class App extends Component {
   constructor(props) {
@@ -16,8 +20,18 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header />
-        <Footer />
+        <Router>
+          <>
+            <Header />
+            <Switch>
+              {/* <Route exact={true} path='/' component={Home} />
+              <Route exact={true} path='/profile' component={Profile} /> */}
+              <Route exact={true} path='/feed' component={Feed} />
+              {/* <Route exact={true} path='/:client' component={Client} /> */}
+            </Switch>
+            <Footer />
+          </>
+        </Router>
       </div>
     );
   }
