@@ -22,7 +22,7 @@ router.get('/profile', (req, res) => {
 });
 
 router.get('/names', (req, res) => {
-  Client.fetchAll({ columns: ['name', 'id'] })
+  Client.where('public', true).fetchAll({ columns: ['name', 'id'] })
     .then(names => res.json({ names: names }))
     .catch(err => res.status(500).json(err));
 });
@@ -31,10 +31,15 @@ router.get('/feature', (req, res) => {
   Client.fetchAll({ columns: ['id'] })
     .then(ids => {
       ids = ids.models;
-      feature = ids.slice(Math.floor(Math.random * ids.length + 1), 1)[0].attributes.id;
-      Event.where('client_id', feature)
-        .fetchAll({ withRelated: ['client'] })
-        .then(events => res.json({ events: events }))
+
+      feature = ids[Math.floor(Math.random() * ids.length)].attributes.id;
+      feature2 = ids[Math.floor(Math.random() * ids.length)].attributes.id;
+      while (feature === feature2) {
+        feature2 = ids[Math.floor(Math.random() * ids.length)].attributes.id;
+      }
+      Client.query({ where: { 'id': feature }, orWhere: { 'id': feature2 } })
+        .fetchAll({ columns: ['name', 'id'], withRelated: ['events'] })
+        .then(clients => res.json({ clients: clients }))
         .catch(err => res.status(500).json(err));
     });
 });
@@ -42,9 +47,13 @@ router.get('/feature', (req, res) => {
 router.get('/:client', (req, res) => {
   const client = decodeURIComponent(req.params.client);
   Client.where({ name: client })
-    .fetchAll({ withRelated: ['events'] })
-    .then(client => res.json({ client: client }))
-    .catch(err => res.status(500).json(err));
+    .fetchAll({ columns: ['name', 'id'], withRelated: ['events'] })
+    .then(client => {
+      return res.json({ client: client })
+    })
+    .catch(err => {
+      return res.status(500).json(err)
+    });
 });
 
 /************************
