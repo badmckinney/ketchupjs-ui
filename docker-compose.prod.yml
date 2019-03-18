@@ -9,6 +9,9 @@ services:
     environment:
       ENVIRONMENT: production
       NODE_ENV: production
+    depends_on:
+      - redis-server
+      - postgres-primary-db
     ports:
       - "${EXPRESS_HOST_PORT}:${EXPRESS_CONTAINER_PORT}"
     networks:
