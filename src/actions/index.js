@@ -5,9 +5,10 @@ export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const LOAD_PROFILE = 'LOAD_PROFILE';
 export const GENERATE_KEY = 'GENERATE_KEY';
 
+const proxy = ""
 export const register = newClient => {
   return () => {
-    return fetch('/api/auth/register', {
+    return fetch(`${proxy}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newClient)
@@ -22,7 +23,7 @@ export const register = newClient => {
 
 export const login = client => {
   return dispatch => {
-    return fetch('/api/auth/login', {
+    return fetch(`${proxy}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(client)
@@ -45,7 +46,7 @@ export const login = client => {
 
 export const logout = () => {
   return dispatch => {
-    return fetch('/api/auth/logout', { method: 'POST' })
+    return fetch(`${proxy}api/auth/logout`, { method: 'POST' })
       .then(res => {
         if (res.status !== 200) {
           throw new Error('error logging out');
@@ -80,7 +81,7 @@ export const loadProfile = () => {
 
 export const editProfile = updatedInfo => {
   return dispatch => {
-    return fetch('/api/profile', {
+    return fetch(`${proxy}/api/profile`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedInfo)

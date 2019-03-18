@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/badmckinney/ketchupjs-ui/issues"
   },
-  "homepage": "https://github.com/badmckinney/ketchupjs-ui#readme",
+  "homepage": "/",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
