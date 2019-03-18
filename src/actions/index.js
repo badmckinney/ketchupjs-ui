@@ -2,6 +2,8 @@ export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const EDIT_PROFILE = 'EDIT_PROFILE';
+export const LOAD_PROFILE = 'LOAD_PROFILE';
+export const GENERATE_KEY = 'GENERATE_KEY';
 
 export const register = newClient => {
   return () => {
@@ -59,6 +61,23 @@ export const logout = () => {
   };
 }
 
+export const loadProfile = () => {
+  return dispatch => {
+    return fetch('/api/profile')
+      .then(res => {
+        if (res.status !== 200) { throw new Error('Error fetching profile'); }
+        return res.json();
+      })
+      .then(data => {
+        dispatch({
+          type: LOAD_PROFILE,
+          payload: data
+        });
+      })
+      .catch(err => err)
+  }
+};
+
 export const editProfile = updatedInfo => {
   return dispatch => {
     return fetch('/api/profile', {
@@ -72,6 +91,23 @@ export const editProfile = updatedInfo => {
         dispatch({
           type: EDIT_PROFILE,
           payload: updatedInfo.username
+        });
+
+        return true;
+      })
+      .catch(err => false);
+  }
+};
+
+export const generateAPIKey = () => {
+  return dispatch => {
+    return fetch('/api/key', { method: 'PUT' })
+      .then(res => {
+        if (res.status !== 200) { throw new Error('Error generating API key'); }
+
+        dispatch({
+          type: GENERATE_KEY,
+          payload: res
         });
 
         return true;

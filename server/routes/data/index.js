@@ -3,18 +3,33 @@ const router = express.Router();
 const Client = require('../../../database/models/Client');
 const Event = require('../../../database/models/Event');
 
+const uuidAPIKey = require('uuid-apikey');
+
 /************************
  *  GET
  ************************/
 
 router.get('/profile', (req, res) => {
-  const id = req.user.id;
+  const id = 9;
 
   Client.where('id', id)
     .fetch()
     .then(client => {
       if (!client) { res.status(400).json({ error: 'That account does not exist' }); }
-      res.json(client);
+      client = client.attributes;
+
+      if (client.key) {
+        client.key = uuidAPIKey.toAPIKey(client.key);
+      }
+
+      const data = {
+        name: client.name,
+        username: client.username,
+        key: client.key,
+        public: client.public
+      }
+
+      res.json(data);
     })
     .catch(err => {
       res.status(500).json(err);
@@ -73,5 +88,38 @@ router.put('/profile', (req, res) => {
         .catch(err => res.status(500).json(err));
     });
 });
+
+router.put('/key', (req, res) => {
+  const id = 9;
+
+  const key = uuidAPIKey.create();
+
+  new Client({ id: id })
+    .save({ key: key.uuid })
+    .then(() => {
+      new Client({ id: id })
+        .fetch()
+        .then(client => {
+          client = client.attributes;
+
+          if (client.key) {
+            client.key = uuidAPIKey.toAPIKey(client.key);
+          }
+
+          const data = {
+            name: client.name,
+            username: client.username,
+            key: client.key,
+            public: client.public
+          }
+
+          res.json(data);
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
+    });
+});
+
 
 module.exports = router;
