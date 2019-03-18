@@ -10,7 +10,7 @@ const uuidAPIKey = require('uuid-apikey');
  ************************/
 
 router.get('/profile', (req, res) => {
-  const id = 9;
+  const id = req.user.id;
 
   Client.where('id', id)
     .fetch()
@@ -90,7 +90,7 @@ router.put('/profile', (req, res) => {
 });
 
 router.put('/key', (req, res) => {
-  const id = 9;
+  const id = req.user.id;
 
   const key = uuidAPIKey.create();
 
