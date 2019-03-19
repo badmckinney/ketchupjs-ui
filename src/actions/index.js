@@ -68,8 +68,6 @@ export const getFeature = () => {
         return res.json({ success: true });
       })
       .then(res => {
-        console.log(res);
-
         dispatch({
           type: LOAD_FEATURE,
           payload: res.clients
