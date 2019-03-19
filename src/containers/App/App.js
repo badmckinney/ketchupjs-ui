@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './App.scss';
 
 import Header from '../../components/Header';
+import Profile from '../../containers/Profile';
 import Footer from '../../components/Footer';
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
     return (
       <div className="app">
         <Header currentUser={this.props.currentUser} />
+        <Profile />
         <Footer />
       </div>
     );

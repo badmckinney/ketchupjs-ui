@@ -3,7 +3,7 @@ $secondary-color: #64db64;
 $overlay-color: rgba(0, 0, 0, 0.6);
 
 html {
-  width: 100vw;
+  width: calc(100vw - 15px);
   height: 100vh;
 
   body {

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
-const uuidAPIKey = require('uuid-apikey');
 
 const Client = require('../../../database/models/Client');
 
@@ -21,17 +20,15 @@ router.post('/auth/register', (req, res) => {
         return res.status(500).json(err);
       }
 
-      const key = uuidAPIKey.create();
-
       return new Client({
         name: newClient.name,
         username: newClient.username,
         password: hash,
-        key: key.uuid
+        key: ""
       })
         .save()
         .then(() => {
-          return res.json({ success: true, apiKey: key.apiKey });
+          return res.json({ success: true });
         })
         .catch(err => {
           return res.status(500).json(err);
