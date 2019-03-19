@@ -38,7 +38,7 @@ class EditProfileButton extends Component {
           onRequestClose={this.closeModal}
           contentLabel="Edit Profile Form"
           shouldCloseOnOverlayClick={true}>
-          <EditProfile close={this.closeModal} />
+          <EditProfile close={this.closeModal} profile={this.props.profile} />
         </Modal>
       </>
     )
