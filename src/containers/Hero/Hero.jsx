@@ -14,7 +14,7 @@ class Hero extends Component {
         <div className="hero">
           <div className="left">
             <h1>KetchupJS</h1>
-            <div>Track the data you care about, in real-time, with the world's most recent data collection and analytic library.</div>
+            <div>Track the data you care about, in real-time, with the world's latest data collection and analytic library.</div>
             <div>KetchupJS is a lightweight open source toolkit for tracking, storing, and analyzing data in JavaScript applications. Easily record data, as your application is being used, with one of our built in methods. We send packets of data through our data pipeline and store it on our servers where they can be accessed and analyzed on our website.</div>
             <div className="buttons">
               <Link to="/docs"><button className="cta">Get Started</button></Link>
