@@ -17,6 +17,17 @@ class App extends Component {
     this.state = {};
   }
 
+  highlight(location) {
+    const links = document.querySelectorAll('.nav-link');
+    links.forEach(link => {
+      if (link.id === location) {
+        link.classList.add('current');
+      } else {
+        link.classList.remove('current');
+      }
+    })
+  }
+
   render() {
     return (
       <div className="app">
@@ -25,8 +36,20 @@ class App extends Component {
             <Header currentUser={this.props.currentUser} />
             <Switch>
               {/* <Route exact={true} path='/' component={Home} /> */}
-              <Route exact={true} path='/profile' component={Profile} />
-              <Route exact={true} path='/feed' component={Feed} />
+              <Route
+                exact={true}
+                path='/profile'
+                render={() => (
+                  <Profile highlight={this.highlight} />
+                )}
+              />
+              <Route
+                exact={true}
+                path='/feed'
+                render={() => (
+                  <Feed highlight={this.highlight} />
+                )}
+              />
               {/* <Route exact={true} path='/:client' component={Client} /> */}
             </Switch>
             <Footer />
