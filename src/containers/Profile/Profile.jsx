@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import './Profile.scss';
 
 import { loadProfile, generateAPIKey } from '../../actions';
@@ -13,6 +14,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
+    this.props.highlight(this.props.location.pathname);
     this.props.loadProfile();
   }
 
@@ -57,4 +59,4 @@ Profile = connect(
   mapDispatchToProps
 )(Profile);
 
-export default Profile;
+export default withRouter(Profile);

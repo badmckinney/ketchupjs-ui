@@ -8,6 +8,8 @@ import Footer from '../../components/Footer';
 // import Home from '../../components/Home';
 import Profile from '../../containers/Profile';
 import Feed from '../../containers/Feed';
+import Docs from '../../containers/Docs';
+import Examples from '../../containers/Examples';
 // import Client from '../../containers/Client';
 
 class App extends Component {
@@ -15,6 +17,17 @@ class App extends Component {
     super(props);
 
     this.state = {};
+  }
+
+  highlight(location) {
+    const links = document.querySelectorAll('.nav-link');
+    links.forEach(link => {
+      if (link.id === location) {
+        link.classList.add('current');
+      } else {
+        link.classList.remove('current');
+      }
+    })
   }
 
   render() {
@@ -25,8 +38,34 @@ class App extends Component {
             <Header currentUser={this.props.currentUser} />
             <Switch>
               {/* <Route exact={true} path='/' component={Home} /> */}
-              <Route exact={true} path='/profile' component={Profile} />
-              <Route exact={true} path='/feed' component={Feed} />
+              <Route
+                exact={true}
+                path='/profile'
+                render={() => (
+                  <Profile highlight={this.highlight} />
+                )}
+              />
+              <Route
+                exact={true}
+                path='/feed'
+                render={() => (
+                  <Feed highlight={this.highlight} />
+                )}
+              />
+              <Route
+                exact={true}
+                path='/docs'
+                render={() => (
+                  <Docs highlight={this.highlight} />
+                )}
+              />
+              <Route
+                exact={true}
+                path='/examples'
+                render={() => (
+                  <Examples highlight={this.highlight} />
+                )}
+              />
               {/* <Route exact={true} path='/:client' component={Client} /> */}
             </Switch>
             <Footer />

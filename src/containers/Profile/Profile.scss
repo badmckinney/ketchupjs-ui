@@ -5,7 +5,7 @@ html {
     #root {
       .app {
         .profile {
-          height: calc(100% - 303px);
+          height: calc(100vh - 303px);
           display: flex;
           flex-direction: column;
           padding: 100px;

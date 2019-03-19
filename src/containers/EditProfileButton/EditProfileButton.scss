@@ -91,6 +91,7 @@ html {
 
               .btn:hover {
                 background: darken($secondary-color, 10%);
+                cursor: pointer;
               }
 
               div {
@@ -126,6 +127,7 @@ html {
 
             .register:hover {
               background: $secondary-color;
+              cursor: pointer;
             }
           }
         }
