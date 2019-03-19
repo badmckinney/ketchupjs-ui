@@ -14,7 +14,7 @@ class Examples extends Component {
         <h1>Examples</h1>
         <div className="content">
           <div className="description"><span className="bold">config</span> sets api key to allows access to use our service.</div>
-          <div className="code">cketchup.config("XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX")</div>
+          <div className="code">ketchup.config("XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX")</div>
           <div className="description"><span className="bold">save</span> records an event of the <span className="bold">metric</span> and its <span className="bold">value</span>.</div>
           <div className="code">ketchup.save("sales", 2.49)</div>
           <div className="description">You can assign the recorded event to a certain user by specifying their <span className="bold">user_name</span>.</div>
