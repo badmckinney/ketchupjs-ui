@@ -88,7 +88,9 @@ export const editProfile = updatedInfo => {
     })
       .then(res => {
         if (res.status !== 200) { throw new Error('Error editing profile'); }
-
+        return res.json();
+      })
+      .then(data => {
         dispatch({
           type: EDIT_PROFILE,
           payload: updatedInfo.username
@@ -105,10 +107,11 @@ export const generateAPIKey = () => {
     return fetch('/api/key', { method: 'PUT' })
       .then(res => {
         if (res.status !== 200) { throw new Error('Error generating API key'); }
-
+        return res.json();
+      }).then(data => {
         dispatch({
           type: GENERATE_KEY,
-          payload: res
+          payload: data
         });
 
         return true;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './EditProfile.scss';
-import { editProfile } from '../../actions/index';
+import { editProfile } from '../../actions';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -10,23 +10,37 @@ class EditProfile extends Component {
     this.state = {
       name: '',
       username: '',
+      public: ''
     };
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.setState(this.props.profile);
+  }
+
   handleInputOnChange(e) {
     const name = e.target.name;
     const value = e.target.value;
 
-    this.setState({ [name]: value });
+    if (name === "public") {
+      if (value === "true") {
+        this.setState({ public: true });
+      } else {
+        this.setState({ public: false });
+      }
+    } else {
+      this.setState({ [name]: value });
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const updatedInfo = this.state;
     this.props.editProfile(updatedInfo);
+    this.props.close();
   }
 
   render() {
@@ -37,7 +51,7 @@ class EditProfile extends Component {
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="Company name"
             value={this.state.name}
             onChange={this.handleInputOnChange}
             required
@@ -52,6 +66,14 @@ class EditProfile extends Component {
             required
             pattern="[A-Za-z0-9_]{6,30}" />
 
+          <div className="privacy">
+            <label htmlFor="public">Data privacy:</label>
+            <select name="public" onChange={this.handleInputOnChange} value={this.state.public}>
+              <option value="true">Public</option>
+              <option value="false">Private</option>
+            </select>
+          </div>
+
           <div className="btn-container">
             <button className="btn" onClick={this.handleSubmit}>
               Submit
@@ -65,7 +87,7 @@ class EditProfile extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editProfile: updatedInfo => dispatch(EditProfile(updatedInfo))
+    editProfile: updatedInfo => dispatch(editProfile(updatedInfo))
   }
 }
 

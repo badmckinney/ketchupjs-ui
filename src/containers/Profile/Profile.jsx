@@ -25,14 +25,14 @@ class Profile extends Component {
       <div className="profile">
         <div className="top">
           <div className="info">
-            <div className="name">{this.props.profile.name}</div>
-            <div className="username">{this.props.profile.username}</div>
-            <div className="privacy">Data Privacy: {this.props.profile.public ? "Public" : "Private"}</div>
+            <div className="name"><span className="label">Company Name:</span> {this.props.profile.name}</div>
+            <div className="username"><span className="label">Username:</span> {this.props.profile.username}</div>
+            {}<div className="privacy"><span className="label">Data Privacy:</span> {this.props.profile.public ? <span className='public'>Public</span> : <span className='private'>Private</span>}</div>
           </div>
-          <EditProfileButton />
+          <EditProfileButton profile={{ name: this.props.profile.name, username: this.props.profile.username, public: this.props.profile.public }} />
         </div>
         <div className="api">
-          API Key: {this.props.profile.key ? <div className="api-key">{this.props.profile.key}</div> : <button onClick={this.onGenerate}>Generate API Key</button>}
+          <span className="label">API Key:</span> {this.props.profile.key ? <div className="api-key">{this.props.profile.key}</div> : <button onClick={this.onGenerate}>Generate API Key</button>}
         </div>
       </div>
     );

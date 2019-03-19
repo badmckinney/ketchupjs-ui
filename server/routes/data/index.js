@@ -10,6 +10,10 @@ const uuidAPIKey = require('uuid-apikey');
  ************************/
 
 router.get('/profile', (req, res) => {
+  if (!req.user) {
+    return res.json({});
+  }
+
   const id = req.user.id;
 
   Client.where('id', id)

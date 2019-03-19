@@ -28,6 +28,7 @@ class Register extends Component {
     e.preventDefault();
     const newClient = this.state;
     this.props.register(newClient);
+    this.props.close();
   }
 
   render() {
@@ -38,7 +39,7 @@ class Register extends Component {
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="Company name"
             value={this.state.name}
             onChange={this.handleInputOnChange}
             required />
