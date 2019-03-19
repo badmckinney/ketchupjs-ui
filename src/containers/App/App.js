@@ -5,7 +5,7 @@ import './App.scss';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-// import Home from '../../components/Home';
+import Hero from '../../containers/Hero';
 import Profile from '../../containers/Profile';
 import Feed from '../../containers/Feed';
 import Docs from '../../containers/Docs';
@@ -37,7 +37,12 @@ class App extends Component {
           <>
             <Header currentUser={this.props.currentUser} />
             <Switch>
-              {/* <Route exact={true} path='/' component={Home} /> */}
+              <Route
+                exact={true}
+                path='/'
+                render={() => (
+                  <Hero highlight={this.highlight} />
+                )} />
               <Route
                 exact={true}
                 path='/profile'
