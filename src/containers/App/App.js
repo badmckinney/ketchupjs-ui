@@ -8,6 +8,8 @@ import Footer from '../../components/Footer';
 // import Home from '../../components/Home';
 import Profile from '../../containers/Profile';
 import Feed from '../../containers/Feed';
+import Docs from '../../containers/Docs';
+import Examples from '../../containers/Examples';
 // import Client from '../../containers/Client';
 
 class App extends Component {
@@ -48,6 +50,20 @@ class App extends Component {
                 path='/feed'
                 render={() => (
                   <Feed highlight={this.highlight} />
+                )}
+              />
+              <Route
+                exact={true}
+                path='/docs'
+                render={() => (
+                  <Docs highlight={this.highlight} />
+                )}
+              />
+              <Route
+                exact={true}
+                path='/examples'
+                render={() => (
+                  <Examples highlight={this.highlight} />
                 )}
               />
               {/* <Route exact={true} path='/:client' component={Client} /> */}
