@@ -6,12 +6,14 @@ html {
       .app {
         .footer {
           display: flex;
+          flex-shrink: 0;
           justify-content: center;
           align-items: center;
           background: $primary-color;
           color: #fff;
           border-top: 3px solid $secondary-color;
           height: 40px;
+          width: 100%;
           font-family: sans-serif;
           font-size: 0.8em;
         }

@@ -1,5 +1,7 @@
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
+export const LOAD_CLIENTS = 'LOAD_CLIENTS';
+export const LOAD_FEATURE = 'LOAD_FEATURE';
 export const LOGOUT = 'LOGOUT';
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const LOAD_PROFILE = 'LOAD_PROFILE';
@@ -44,6 +46,42 @@ export const login = client => {
   }
 };
 
+export const getClients = () => {
+  return dispatch => {
+    return fetch('/api/names')
+      .then(res => {
+        if (res.status === 500) { throw new Error('Server Error'); }
+        return res.json({ success: true });
+      })
+      .then(res => {
+        dispatch({
+          type: LOAD_CLIENTS,
+          payload: res.names
+        });
+
+        return true
+      })
+      .catch(err => false);
+  }
+};
+
+export const getFeature = () => {
+  return dispatch => {
+    return fetch('/api/feature')
+      .then(res => {
+        if (res.status === 500) { throw new Error('Server Error'); }
+        return res.json({ success: true });
+      })
+      .then(res => {
+        dispatch({
+          type: LOAD_FEATURE,
+          payload: res.clients
+        });
+        return true
+      })
+      .catch(err => false);
+  };
+}
 export const logout = () => {
   return dispatch => {
     return fetch(`${proxy}api/auth/logout`, { method: 'POST' })
