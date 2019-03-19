@@ -6,7 +6,7 @@ import './App.scss';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 // import Home from '../../components/Home';
-// import Profile from '../../containers/Profile';
+import Profile from '../../containers/Profile';
 import Feed from '../../containers/Feed';
 // import Client from '../../containers/Client';
 
@@ -25,7 +25,7 @@ class App extends Component {
             <Header currentUser={this.props.currentUser} />
             <Switch>
               {/* <Route exact={true} path='/' component={Home} /> */}
-              {/* <Route exact={true} path='/profile' component={Profile} /> */}
+              <Route exact={true} path='/profile' component={Profile} />
               <Route exact={true} path='/feed' component={Feed} />
               {/* <Route exact={true} path='/:client' component={Client} /> */}
             </Switch>

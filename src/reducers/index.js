@@ -3,13 +3,21 @@ import {
   LOAD_CLIENTS,
   LOAD_FEATURE,
   LOGOUT,
-  EDIT_PROFILE
+  LOAD_PROFILE,
+  EDIT_PROFILE,
+  GENERATE_KEY
 } from '../actions';
 
 const initialState = {
   currentUser: localStorage.getItem('client'),
   clientNames: [],
-  feature: []
+  feature: [],
+  profile: {
+    name: "",
+    username: "",
+    key: "",
+    public: true
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,6 +35,12 @@ const reducer = (state = initialState, action) => {
         currentUser: '',
         profile: {}
       });
+    case LOAD_PROFILE:
+      if (action.payload === state.profile) {
+        return;
+      }
+
+      return Object.assign({}, state, { profile: action.payload });
     case EDIT_PROFILE:
       if (action.payload === state.currentUser) {
         return;
@@ -35,6 +49,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         currentUser: action.payload
       });
+    case GENERATE_KEY:
+      return Object.assign({}, state, { profile: action.payload });
     default:
       return state;
   }

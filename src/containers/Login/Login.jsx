@@ -27,6 +27,7 @@ class Login extends Component {
     e.preventDefault();
     const client = this.state;
     this.props.login(client);
+    this.props.close();
   }
 
   render() {
