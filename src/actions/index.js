@@ -1,6 +1,7 @@
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOAD_CLIENTS = 'LOAD_CLIENTS';
+export const LOAD_FEATURE = 'LOAD_FEATURE';
 
 export const register = newClient => {
   return () => {
@@ -41,8 +42,6 @@ export const login = client => {
 };
 
 export const getClients = () => {
-  console.log('loadclients');
-
   return dispatch => {
     return fetch('/api/names')
       .then(res => {
@@ -50,10 +49,30 @@ export const getClients = () => {
         return res.json({ success: true });
       })
       .then(res => {
-        console.log(res)
         dispatch({
           type: LOAD_CLIENTS,
           payload: res.names
+        });
+
+        return true
+      })
+      .catch(err => false);
+  }
+};
+
+export const getFeature = () => {
+  return dispatch => {
+    return fetch('/api/feature')
+      .then(res => {
+        if (res.status === 500) { throw new Error('Server Error'); }
+        return res.json({ success: true });
+      })
+      .then(res => {
+        console.log(res);
+
+        dispatch({
+          type: LOAD_FEATURE,
+          payload: res.clients
         });
 
         return true

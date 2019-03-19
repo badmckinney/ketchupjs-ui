@@ -1,11 +1,13 @@
 import {
   LOGIN,
-  LOAD_CLIENTS
+  LOAD_CLIENTS,
+  LOAD_FEATURE
 } from '../actions';
 
 const initialState = {
   currentUser: localStorage.getItem('client'),
-  clients: []
+  clientNames: [],
+  feature: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,7 +16,9 @@ const reducer = (state = initialState, action) => {
       localStorage.setItem('client', action.payload);
       return Object.assign({}, state, { currentUser: action.payload });
     case LOAD_CLIENTS:
-      return Object.assign({}, state, { clients: [...action.payload] });
+      return Object.assign({}, state, { clientNames: [...action.payload] });
+    case LOAD_FEATURE:
+      return Object.assign({}, state, { feature: [...action.payload] });
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 const express = require('express');
+const knex = require('../../../database/knex');
 const router = express.Router();
 const Client = require('../../../database/models/Client');
 const Event = require('../../../database/models/Event');
@@ -22,13 +23,23 @@ router.get('/profile', (req, res) => {
 });
 
 router.get('/names', (req, res) => {
-  Client.where('public', true).fetchAll({ columns: ['name', 'id'] })
+  if (!req.user) {
+    req.user = { id: 0 };
+  }
+  Client.query({ where: { public: true }, orWhere: { id: req.user.id } })
+    .fetchAll({ columns: ['name', 'id'] })
     .then(names => res.json({ names: names }))
-    .catch(err => res.status(500).json(err));
+    .catch(err => {
+      return res.status(500).json(err)
+    });
 });
 
 router.get('/feature', (req, res) => {
-  Client.fetchAll({ columns: ['id'] })
+  if (!req.user) {
+    req.user = { id: 0 };
+  }
+  Client.query({ where: { public: true }, orWhere: { id: req.user.id } })
+    .fetchAll({ columns: ['id'] })
     .then(ids => {
       ids = ids.models;
 
@@ -37,19 +48,43 @@ router.get('/feature', (req, res) => {
       while (feature === feature2) {
         feature2 = ids[Math.floor(Math.random() * ids.length)].attributes.id;
       }
-      Client.query({ where: { 'id': feature }, orWhere: { 'id': feature2 } })
-        .fetchAll({ columns: ['name', 'id'], withRelated: ['events'] })
-        .then(clients => res.json({ clients: clients }))
-        .catch(err => res.status(500).json(err));
+      let clientSet = []
+      Client.where('id', feature).fetch({ columns: ['name'] })
+        .then(client => {
+          knex.raw(`SELECT sum(value), metric, user_name FROM events WHERE client_id = ${feature} GROUP BY metric, user_name`)
+            .then(events => {
+              clientSet.push({ name: client.attributes.name, events: events.rows })
+              Client.where('id', feature2).fetch({ columns: ['name'] })
+                .then(clientTwo => {
+                  knex.raw(`SELECT sum(value), metric, user_name FROM events WHERE client_id = ${feature2} GROUP BY metric, user_name`)
+                    .then(eventsTwo => {
+                      clientSet.push({ name: clientTwo.attributes.name, events: eventsTwo.rows })
+                      return res.json({ clients: clientSet })
+                    })
+                })
+            })
+        })
+        .catch(err => {
+          return res.status(500).json(err)
+        });
     });
 });
 
 router.get('/:client', (req, res) => {
+  if (!req.user) {
+    req.user = { id: 0 };
+  }
   const client = decodeURIComponent(req.params.client);
-  Client.where({ name: client })
-    .fetchAll({ columns: ['name', 'id'], withRelated: ['events'] })
+  Client.query({ where: { name: client, public: true }, orWhere: { name: client, id: req.user.id } })
+    .fetch({ columns: ['name', 'id'] })
     .then(client => {
-      return res.json({ client: client })
+      if (!client) { return res.json({ error: 'No Records Found' }); }
+      id = client.attributes.id;
+      knex.raw(`SELECT sum(value), metric, user_name FROM events WHERE client_id = ${id} GROUP BY metric, user_name`)
+        .then(events => {
+          client.attributes.events = events.rows;
+          return res.json({ client: client });
+        })
     })
     .catch(err => {
       return res.status(500).json(err)

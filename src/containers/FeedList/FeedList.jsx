@@ -46,7 +46,7 @@ class FeedList extends Component {
 
 const mapStateToProps = state => {
   return {
-    clients: state.clients
+    clients: state.clientNames
   };
 };
 

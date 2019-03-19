@@ -1,0 +1,71 @@
+@import '../../index.scss';
+
+.nameListContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33%;
+}
+
+.searchBox{
+  width: 70%;
+  margin: 15px;
+  input{
+    width: 100%;
+    height: 25px;
+    border-radius: 5px;
+  }
+}
+
+.clientsList {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  overflow-y: scroll;
+  min-height: 40%;
+  height: 500px;
+  padding: 0;
+  border-radius: 5px;
+  
+  border: 2px solid #ccc;
+  
+  font-size: 16px;
+  font-family: sans-serif;
+  
+  .clientListItem {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid #ccc;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &:nth-child(even) {
+      background: #f8f8f8;
+    }
+
+  }
+  .clientListItem:hover{
+    background-color: $primary-color;
+    color: white;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: $primary-color; 
+  border-radius: 10px;
+}
+
+

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Feed.scss';
 import FeedList from '../../containers/FeedList'
-// import Featured from '../../components/Featured'
+import Feature from '../../containers/Feature'
 // import { login } from '../../actions/index';
 
 class Feed extends Component {
@@ -11,7 +11,7 @@ class Feed extends Component {
     return (
       <div className="feed">
         <FeedList />
-        {/* <Featured/> */}
+        <Feature />
       </div>
     )
   }
