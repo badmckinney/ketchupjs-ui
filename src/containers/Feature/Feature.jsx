@@ -15,7 +15,7 @@ class Feature extends Component {
         {this.props.feature[1] ?
           <div className="featureContainer">
             <Chart chartClass="one" data={this.props.feature[0]} />
-            {/* <Chart chartClass="two" data={this.props.feature[1]}/> */}
+            <Chart chartClass="two" data={this.props.feature[1]} />
           </div>
           :
           null
