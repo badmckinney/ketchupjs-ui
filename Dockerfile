@@ -1,23 +1,24 @@
-# Built from Node latest Alpine
-FROM node:10.0-alpine
-
-# specify an optional argument with a default value
-ARG app_directory=/src/app
-ARG NODE_ENV=development
-
-# Set the app directory as the context for all commands and entry to the container
-WORKDIR $app_directory
-
-# ONLY copy over the package.json to install NPM packages
+FROM node:10.15.1-alpine
+# Update latest security patches
+RUN apk update && apk upgrade
+# RUN adduser webuser -
+RUN adduser -D -g '' webuser
+# SET default APP_DIR path
+ARG APP_DIR=/src/app
+# Create APP_DIR path and set permissions
+RUN mkdir -p $APP_DIR
+RUN chown -R webuser:webuser $APP_DIR
+# Switch user to non-privileged user
+USER webuser 
+# Change working directory to application directory
+WORKDIR $APP_DIR
+# Copy package.json to /app directory
 COPY package.json .
-COPY package-lock.json .
-
-# Install node module dependencies
+# Install node modules/dependencies
 RUN npm install
-
-
-# Add the rest of the project files(most builds will start from here based on cache)
+# Copy application code 
 COPY . .
-
-# Start the node application as you normally would
+# Expose this port on DOCKER NETWORK (NOT HOST MAPPING)
+EXPOSE 3000
+# Start the Express server
 CMD ["node", "./server/server.js"]

@@ -22,10 +22,10 @@ class App extends Component {
       <div className="app">
         <Router>
           <>
-            <Header />
+            <Header currentUser={this.props.currentUser} />
             <Switch>
-              {/* <Route exact={true} path='/' component={Home} />
-              <Route exact={true} path='/profile' component={Profile} /> */}
+              {/* <Route exact={true} path='/' component={Home} /> */}
+              {/* <Route exact={true} path='/profile' component={Profile} /> */}
               <Route exact={true} path='/feed' component={Feed} />
               {/* <Route exact={true} path='/:client' component={Client} /> */}
             </Switch>
@@ -38,7 +38,9 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    currentUser: state.currentUser
+  };
 };
 
 const mapDispatchToProps = dispatch => {
