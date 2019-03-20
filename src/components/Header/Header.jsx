@@ -21,7 +21,10 @@ const Header = (props) => {
 
       <div className="btn-wrapper">
         {props.currentUser ?
-          <LogoutButton />
+          <>
+            <button className="dashboard">Dashboard</button>
+            <LogoutButton />
+          </>
           :
           <>
             <LoginButton />
