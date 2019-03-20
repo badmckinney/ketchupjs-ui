@@ -23,7 +23,7 @@ class Feature extends Component {
       <>
         {this.props.feature[0] ?
           <div className="featureContainer">
-            <div>Recent Recordings</div>
+            <div className="heading">Recent Recordings</div>
             <ul className="feedTable">
               <li className="feedTableItem label">
                 <div className="feedTableData">Program Name</div>
