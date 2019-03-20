@@ -61,6 +61,7 @@ html {
                 .cta:hover {
                   color: #fff;
                   background-color: $secondary-color;
+                  cursor: pointer;
                 }
 
                 .download {
@@ -72,6 +73,7 @@ html {
                 .download:hover {
                   color: #fff;
                   background-color: #777;
+                  cursor: pointer;
                 }
               }
             }
@@ -163,6 +165,7 @@ html {
               button:hover {
                 background-color: #167ffb;
                 color: #fff;
+                cursor: pointer;
               }
             }
           }
