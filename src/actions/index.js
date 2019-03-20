@@ -7,17 +7,21 @@ export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const LOAD_PROFILE = 'LOAD_PROFILE';
 export const GENERATE_KEY = 'GENERATE_KEY';
 
-const proxy = "";
+const proxy = 'http://34.210.191.216:8000';
 
 export const register = newClient => {
   return () => {
     return fetch(`${proxy}/api/auth/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(newClient)
     })
       .then(res => {
-        if (res.status !== 200) { throw new Error('Error creating account'); }
+        if (res.status !== 200) {
+          throw new Error('Error creating account');
+        }
         return true;
       })
       .catch(err => false);
@@ -28,11 +32,15 @@ export const login = client => {
   return dispatch => {
     return fetch(`${proxy}/api/auth/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(client)
     })
       .then(res => {
-        if (res.status === 401) { throw new Error('Unauthorized'); }
+        if (res.status === 401) {
+          throw new Error('Unauthorized');
+        }
         return res.json({ success: true });
       })
       .then(res => {
@@ -41,17 +49,23 @@ export const login = client => {
           payload: res.username
         });
 
-        return true
+        return true;
       })
       .catch(err => false);
-  }
+  };
 };
 
 export const getClients = () => {
   return dispatch => {
-    return fetch('/api/names')
+    return fetch(`${proxy}/api/names`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
-        if (res.status === 500) { throw new Error('Server Error'); }
+        if (res.status === 500) {
+          throw new Error('Server Error');
+        }
         return res.json({ success: true });
       })
       .then(res => {
@@ -60,17 +74,23 @@ export const getClients = () => {
           payload: res.names
         });
 
-        return true
+        return true;
       })
       .catch(err => false);
-  }
+  };
 };
 
 export const getFeature = () => {
   return dispatch => {
-    return fetch('/api/feature')
+    return fetch(`${proxy}/api/feature`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
-        if (res.status === 500) { throw new Error('Server Error'); }
+        if (res.status === 500) {
+          throw new Error('Server Error');
+        }
         return res.json({ success: true });
       })
       .then(res => {
@@ -78,14 +98,19 @@ export const getFeature = () => {
           type: LOAD_FEATURE,
           payload: res.events
         });
-        return true
+        return true;
       })
       .catch(err => false);
   };
-}
+};
 export const logout = () => {
   return dispatch => {
-    return fetch(`${proxy}api/auth/logout`, { method: 'POST' })
+    return fetch(`${proxy}api/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
         if (res.status !== 200) {
           throw new Error('error logging out');
@@ -99,13 +124,19 @@ export const logout = () => {
       })
       .catch(err => false);
   };
-}
+};
 
 export const loadProfile = () => {
   return dispatch => {
-    return fetch('/api/profile')
+    return fetch(`${proxy}/api/profile`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
-        if (res.status !== 200) { throw new Error('Error fetching profile'); }
+        if (res.status !== 200) {
+          throw new Error('Error fetching profile');
+        }
         return res.json();
       })
       .then(data => {
@@ -114,19 +145,23 @@ export const loadProfile = () => {
           payload: data
         });
       })
-      .catch(err => err)
-  }
+      .catch(err => err);
+  };
 };
 
 export const editProfile = updatedInfo => {
   return dispatch => {
     return fetch(`${proxy}/api/profile`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(updatedInfo)
     })
       .then(res => {
-        if (res.status !== 200) { throw new Error('Error editing profile'); }
+        if (res.status !== 200) {
+          throw new Error('Error editing profile');
+        }
         return res.json();
       })
       .then(data => {
@@ -138,16 +173,24 @@ export const editProfile = updatedInfo => {
         return true;
       })
       .catch(err => false);
-  }
+  };
 };
 
 export const generateAPIKey = () => {
   return dispatch => {
-    return fetch('/api/key', { method: 'PUT' })
+    return fetch(`${proxy}/api/key`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
-        if (res.status !== 200) { throw new Error('Error generating API key'); }
+        if (res.status !== 200) {
+          throw new Error('Error generating API key');
+        }
         return res.json();
-      }).then(data => {
+      })
+      .then(data => {
         dispatch({
           type: GENERATE_KEY,
           payload: data
@@ -156,12 +199,16 @@ export const generateAPIKey = () => {
         return true;
       })
       .catch(err => false);
-  }
+  };
 };
 
 export const checkUniqueUsername = username => {
   return () => {
-    return fetch(`/api/auth/validate/${username}`)
+    return fetch(`${proxy}/api/auth/validate/${username}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Error validating username');
@@ -177,12 +224,16 @@ export const checkUniqueUsername = username => {
         return false;
       })
       .catch(err => false);
-  }
-}
+  };
+};
 
 export const checkUniqueName = name => {
   return () => {
-    return fetch(`/api/auth/validate/${name}`)
+    return fetch(`${proxy}/api/auth/validate/${name}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Error validating company name');
@@ -198,5 +249,5 @@ export const checkUniqueName = name => {
         return false;
       })
       .catch(err => false);
-  }
-}
+  };
+};

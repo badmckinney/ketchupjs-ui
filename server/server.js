@@ -71,18 +71,22 @@ passport.deserializeUser((client, done) => {
 });
 
 passport.use(
-  new LocalStrategy(function (username, password, done) {
+  new LocalStrategy(function(username, password, done) {
     return Client.query(qb => {
       qb.whereRaw(`LOWER(username) LIKE ?`, [username]);
     })
       .fetch()
       .then(client => {
-        if (client === null) { return done(null, false); }
-        else {
+        if (client === null) {
+          return done(null, false);
+        } else {
           client = client.toJSON();
           bcrypt.compare(password, client.password).then(res => {
-            if (res) { return done(null, client); }
-            else { return done(null, false); }
+            if (res) {
+              return done(null, client);
+            } else {
+              return done(null, false);
+            }
           });
         }
       })
@@ -91,7 +95,14 @@ passport.use(
       });
   })
 );
-
+app.use((req, res, next) => {
+  res.header({
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Origin': 'http://ketchupjs.dev.s3-website-us-west-2.amazonaws.com',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH ,DELETE, OPTIONS'
+  });
+  next();
+});
 app.use('/api', auth, data);
 
 app.listen(PORT, () => {
