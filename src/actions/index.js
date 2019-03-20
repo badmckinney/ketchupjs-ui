@@ -75,7 +75,7 @@ export const getFeature = () => {
       .then(res => {
         dispatch({
           type: LOAD_FEATURE,
-          payload: res.clients
+          payload: res.events
         });
         return true
       })

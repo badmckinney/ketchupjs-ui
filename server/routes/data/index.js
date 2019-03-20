@@ -58,67 +58,16 @@ router.get('/feature', (req, res) => {
   if (!req.user) {
     req.user = { id: 0 };
   }
-  Client.query({ where: { public: true }, orWhere: { id: req.user.id } })
-    .fetchAll({ columns: ['id'] })
-    .then(ids => {
-      ids = ids.models;
+  knex.raw(`Select events.user_name, events.metric, count(events.metric), events.client_id, clients.name, max(events.created_at) FROM events INNER JOIN clients ON events.client_id = clients.id WHERE events.public = true OR client_id = ${req.user.id} GROUP BY events.user_name, events.metric, events.client_id, clients.name ORDER BY max DESC LIMIT 20`)
+    .then(events => {
+      res.json({ events: events.rows })
+    })
+    .catch(err => {
+      console.log(err);
 
-      feature = ids[Math.floor(Math.random() * ids.length)].attributes.id;
-      feature2 = ids[Math.floor(Math.random() * ids.length)].attributes.id;
-      while (feature === feature2) {
-        feature2 = ids[Math.floor(Math.random() * ids.length)].attributes.id;
-      }
-      let clientSet = [];
-      let promises = [];
-      Client.where('id', feature).fetch({ columns: ['name'] })
-        .then(client => {
-          clientSet.push(client.attributes)
-          knex.raw(`Select metric FROM events WHERE client_id = ${feature} GROUP BY metric`)
-            .then(metrics => {
-              clientSet[0].metrics = metrics.rows;
-              clientSet[0].users = [];
-              knex.raw(`Select user_name FROM events WHERE client_id = ${feature} GROUP BY user_name`)
-                .then(users => {
-                  users.rows.map(user => {
-                    promises.push(knex.raw(`SELECT sum(value) AS value, metric FROM events WHERE client_id = ${feature} AND user_name = '${user.user_name}' GROUP BY metric`)
-                      .then(events => {
-                        user.events = events.rows
-                        clientSet[0].users.push(user);
-                      }))
-                  })
-                })
-                .then(() => {
-                  Client.where('id', feature2).fetch({ columns: ['name'] })
-                    .then(client => {
-                      clientSet.push(client.attributes)
-                      knex.raw(`Select metric FROM events WHERE client_id = ${feature2} GROUP BY metric`)
-                        .then(metrics => {
-                          clientSet[1].metrics = metrics.rows;
-                          clientSet[1].users = [];
-                          knex.raw(`Select user_name FROM events WHERE client_id = ${feature2} GROUP BY user_name`)
-                            .then(users => {
-                              users.rows.map(user => {
-                                promises.push(knex.raw(`SELECT sum(value) AS value, metric FROM events WHERE client_id = ${feature2} AND user_name = '${user.user_name}' GROUP BY metric`)
-                                  .then(events => {
-                                    user.events = events.rows
-                                    clientSet[1].users.push(user);
-                                  }))
-                              })
-                            })
-                            .then(() => {
-                              Promise.all(promises).then(() => {
-                                return res.json({ clients: clientSet })
-                              })
-                            })
-                        })
-                    })
-                })
-            })
-        })
-        .catch(err => {
-          return res.status(500).json(err)
-        });
+      return res.status(500).json(err)
     });
+
 });
 
 router.get('/:client', (req, res) => {
