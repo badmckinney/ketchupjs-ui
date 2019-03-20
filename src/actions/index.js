@@ -7,7 +7,8 @@ export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const LOAD_PROFILE = 'LOAD_PROFILE';
 export const GENERATE_KEY = 'GENERATE_KEY';
 
-const proxy = ""
+const proxy = "";
+
 export const register = newClient => {
   return () => {
     return fetch(`${proxy}/api/auth/register`, {
@@ -157,3 +158,45 @@ export const generateAPIKey = () => {
       .catch(err => false);
   }
 };
+
+export const checkUniqueUsername = username => {
+  return () => {
+    return fetch(`/api/auth/validate/${username}`)
+      .then(res => {
+        if (res.status !== 200) {
+          throw new Error('Error validating username');
+        }
+
+        return res.json();
+      })
+      .then(res => {
+        if (res.unique) {
+          return true;
+        }
+
+        return false;
+      })
+      .catch(err => false);
+  }
+}
+
+export const checkUniqueName = name => {
+  return () => {
+    return fetch(`/api/auth/validate/${name}`)
+      .then(res => {
+        if (res.status !== 200) {
+          throw new Error('Error validating company name');
+        }
+
+        return res.json();
+      })
+      .then(res => {
+        if (res.unique) {
+          return true;
+        }
+
+        return false;
+      })
+      .catch(err => false);
+  }
+}

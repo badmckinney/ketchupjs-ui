@@ -11,7 +11,7 @@ const ClientListItem = (props) => {
   if (props.data.metrics.length < metricLength) {
     metricLength = props.data.metrics.length;
   }
-
+  console.log(metricLength);
   let datasets = [];
 
   for (let i = 0; i < metricLength; i++) {
@@ -32,7 +32,7 @@ const ClientListItem = (props) => {
   for (let i = 0; i < userLength; i++) {
     labels.push(props.data.users[i].user_name);
     for (let j = 0; j < metricLength; j++) {
-      if (props.data.users[i].events[j].metric === datasets[j].label) {
+      if (props.data.users[i].events[j] && props.data.users[i].events[j].metric === datasets[j].label) {
         datasets[j].data.push(props.data.users[i].events[j].value);
       } else {
         datasets[j].data.push(0);

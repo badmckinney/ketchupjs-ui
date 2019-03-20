@@ -9,7 +9,8 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      errorMessage: ''
     };
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
@@ -26,8 +27,13 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const client = this.state;
-    this.props.login(client);
-    this.props.close();
+    this.props.login(client).then(res => {
+      if (res) {
+        this.props.close();
+      } else {
+        this.setState({ errorMessage: 'Incorrect username or password' });
+      }
+    })
   }
 
   render() {
@@ -60,7 +66,7 @@ class Login extends Component {
             </button>
           </div>
           <div className="register-here">
-            Don't have an account? Sign up
+            {this.state.errorMessage}
           </div>
         </form>
       </div>

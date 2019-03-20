@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './EditProfile.scss';
-import { editProfile } from '../../actions';
+import { editProfile, checkUniqueName, checkUniqueUsername } from '../../actions';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -10,15 +10,31 @@ class EditProfile extends Component {
     this.state = {
       name: '',
       username: '',
-      public: ''
+      public: '',
+      isValid: false,
+      isUnique: false
     };
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkUnique = this.checkUnique.bind(this);
   }
 
   componentDidMount() {
     this.setState(this.props.profile);
+  }
+
+  checkUnique() {
+    if (this.state.name.length > 5 && this.state.username.length > 5) {
+      const uniqueUsername = this.props.checkUniqueUsername(this.state.username);
+      const uniqueName = this.props.checkUniqueName(this.state.name);
+
+      Promise.all([uniqueUsername, uniqueName]).then(values => {
+        if (values[0] === true && values[1] === true) {
+          this.setState({ isUnique: true, errorMessage: '' });
+        }
+      });
+    }
   }
 
   handleInputOnChange(e) {
@@ -34,10 +50,34 @@ class EditProfile extends Component {
     } else {
       this.setState({ [name]: value });
     }
+
+    this.checkUnique();
+
+    if (this.state.username.length > 5) {
+      this.setState({ isValid: true, errorMessage: '' });
+    } else {
+      this.setState({ isValid: false });
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
+
+    if (!this.state.name || !this.state.username || !this.state.password) {
+      this.setState({ errorMessage: 'Please fill out all fields' });
+      return false;
+    }
+
+    if (!this.state.isValid) {
+      this.setState({ errorMessage: 'Username and password must have a length of 6' });
+      return false;
+    }
+
+    if (!this.state.isUnique) {
+      this.setState({ errorMessage: 'Username or Company name taken' });
+      return false
+    }
+
     const updatedInfo = this.state;
     this.props.editProfile(updatedInfo);
     this.props.close();
@@ -79,6 +119,9 @@ class EditProfile extends Component {
               Submit
             </button>
           </div>
+          <div className="error">
+            {this.state.errorMessage}
+          </div>
         </form>
       </div>
     )
@@ -87,7 +130,9 @@ class EditProfile extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editProfile: updatedInfo => dispatch(editProfile(updatedInfo))
+    editProfile: updatedInfo => dispatch(editProfile(updatedInfo)),
+    checkUniqueUsername: username => dispatch(checkUniqueUsername(username)),
+    checkUniqueName: name => dispatch(checkUniqueName(name))
   }
 }
 
