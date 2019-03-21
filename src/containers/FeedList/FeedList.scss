@@ -45,8 +45,7 @@
     border-bottom: 1px solid $secondary-color;
   }
   .clientListItem:hover{
-    background-color: $primary-color;
-    color: white;
+    background-color: lighten($secondary-color, 30%);
     cursor: pointer;
   }
 }

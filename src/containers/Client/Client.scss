@@ -29,6 +29,10 @@
 
   .listLabel {
     font-family: sans-serif;
+    text-transform: uppercase;
+    color: $secondary-color;
+    font-weight: 600;
+    font-size: 0.8em;
   }
 
   .listContainer {
@@ -40,10 +44,8 @@
     min-height: 200px;
     max-height: 320px;
     padding: 0;
-    border-radius: 5px;
-    
-    border: 2px solid #ccc;
-    
+    border-radius: 6px;
+    border: 1px solid $secondary-color;
     font-size: 16px;
     font-family: sans-serif;
     
@@ -51,7 +53,7 @@
       padding: 10px 20px;
       text-decoration: none;
       color: black;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $secondary-color;
     }
     
     .listItem:hover{
@@ -74,10 +76,13 @@
       max-height: 700px;
     }
   }
-
 }
 
 .noInput{
   text-align: center;
   font-family: sans-serif;
+  text-transform: uppercase;
+  color: $secondary-color;
+  font-weight: 600;
+  font-size: 0.8em;
 }
