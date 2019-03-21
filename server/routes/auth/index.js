@@ -38,7 +38,7 @@ router.post('/auth/register', (req, res) => {
 });
 
 router.post('/auth/login', passport.authenticate('local'), (req, res) => {
-  res.json({ success: true, username: req.user.username });
+  res.json({ success: true, username: req.user.username, name: req.user.name });
 });
 
 router.post('/auth/logout', (req, res) => {

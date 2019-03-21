@@ -63,11 +63,8 @@ router.get('/feature', (req, res) => {
       res.json({ events: events.rows })
     })
     .catch(err => {
-      console.log(err);
-
       return res.status(500).json(err)
     });
-
 });
 
 router.get('/:client', (req, res) => {
@@ -81,11 +78,11 @@ router.get('/:client', (req, res) => {
       if (!client) { return res.json({ error: 'No Records Found' }); }
       let clientData = [client.attributes];
       id = client.attributes.id;
-      knex.raw(`Select metric FROM events WHERE client_id = ${feature} GROUP BY metric`)
+      knex.raw(`Select metric FROM events WHERE client_id = ${id} GROUP BY metric`)
         .then(metrics => {
-          clientSet[0].metrics = metrics.rows;
-          clientData[0].users = [];
           let promises = [];
+          clientData[0].metrics = metrics.rows;
+          clientData[0].users = [];
           knex.raw(`Select user_name FROM events WHERE client_id = ${id} GROUP BY user_name`)
             .then(users => {
               users.rows.map(user => {
@@ -96,11 +93,11 @@ router.get('/:client', (req, res) => {
                   }))
               })
             })
-        })
-        .then(() => {
-          Promise.all(promises).then(() => {
-            return res.json({ clients: clientData })
-          })
+            .then(() => {
+              Promise.all(promises).then(() => {
+                return res.json({ clients: clientData })
+              })
+            })
         })
     })
     .catch(err => {
