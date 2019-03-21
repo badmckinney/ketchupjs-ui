@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import HeroImage from '../../components/HeroImage';
 import './Hero.scss';
 
 class Hero extends Component {
@@ -22,9 +23,7 @@ class Hero extends Component {
             </div>
             <div className="version">Currently v1.2.4</div>
           </div>
-          <div className="right">
-            <img src="/assets/KetchupJS.png" alt="Ketchup packet logo" />
-          </div>
+          <HeroImage />
         </div>
         <div className="quick-links">
           <div className="column installation">
