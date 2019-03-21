@@ -10,6 +10,8 @@ export const LOAD_CLIENT = 'LOAD_CLIENT';
 
 const proxy = "";
 
+// http://54.200.230.195:8000
+
 export const register = newClient => {
   return () => {
     return fetch(`${proxy}/api/auth/register`, {
