@@ -5,7 +5,8 @@ import {
   LOGOUT,
   LOAD_PROFILE,
   EDIT_PROFILE,
-  GENERATE_KEY
+  GENERATE_KEY,
+  LOAD_CLIENT
 } from '../actions';
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
     username: "",
     key: "",
     public: true
-  }
+  },
+  client: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -39,7 +41,6 @@ const reducer = (state = initialState, action) => {
       if (action.payload === state.profile) {
         return;
       }
-
       return Object.assign({}, state, { profile: action.payload });
     case EDIT_PROFILE:
       if (action.payload === state.currentUser) {
@@ -51,6 +52,8 @@ const reducer = (state = initialState, action) => {
       });
     case GENERATE_KEY:
       return Object.assign({}, state, { profile: action.payload });
+    case LOAD_CLIENT:
+      return Object.assign({}, state, { client: action.payload });
     default:
       return state;
   }

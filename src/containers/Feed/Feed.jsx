@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import './Feed.scss';
 import FeedList from '../../containers/FeedList'
 import Feature from '../../containers/Feature'
-// import { login } from '../../actions/index';
 
 class Feed extends Component {
 
@@ -23,9 +22,7 @@ class Feed extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    // login: client => dispatch(login(client))
-  }
+  return {}
 }
 
 Feed = connect(

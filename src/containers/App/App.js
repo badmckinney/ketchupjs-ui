@@ -10,7 +10,7 @@ import Profile from '../../containers/Profile';
 import Feed from '../../containers/Feed';
 import Docs from '../../containers/Docs';
 import Examples from '../../containers/Examples';
-// import Client from '../../containers/Client';
+import Client from '../../containers/Client';
 
 class App extends Component {
   constructor(props) {
@@ -71,7 +71,13 @@ class App extends Component {
                   <Examples highlight={this.highlight} />
                 )}
               />
-              {/* <Route exact={true} path='/:client' component={Client} /> */}
+              <Route
+                exact={true}
+                path='/:client'
+                render={() => (
+                  <Client highlight={this.highlight} />
+                )}
+              />
             </Switch>
             <Footer />
           </>
