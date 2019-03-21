@@ -182,7 +182,7 @@ export const getClient = (clientName) => {
 
 export const checkUniqueUsername = username => {
   return () => {
-    return fetch(`/api/auth/validate/${username}`)
+    return fetch(`/api/auth/validate/username/${username}`)
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Error validating username');
@@ -203,7 +203,7 @@ export const checkUniqueUsername = username => {
 
 export const checkUniqueName = name => {
   return () => {
-    return fetch(`/api/auth/validate/${name}`)
+    return fetch(`/api/auth/validate/name/${name}`)
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Error validating company name');
@@ -212,6 +212,7 @@ export const checkUniqueName = name => {
         return res.json();
       })
       .then(res => {
+        console.log('action', res);
         if (res.unique) {
           return true;
         }
