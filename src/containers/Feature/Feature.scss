@@ -14,44 +14,47 @@
 
   .feedTable {
     width: 800px;
-    height: 500px;
+    height: 482px;
     overflow-y: scroll;
-    margin: 20px 0px 0px 0px;
+    margin: 0;
     padding: 0;
     border: 1px solid $secondary-color;
-    border-radius:6px;
+    border-bottom-right-radius:6px;
+    border-bottom-left-radius: 6px;
     position: relative;
 
-    .label {
-      border-bottom: 1px solid $secondary-color;
-      border-top-left-radius: 6px;
-      text-transform: uppercase;
-      font-size: 0.8em;
-      color: $secondary-color;
-      position: fixed;
-      z-index: 2;
-      width: 774px;
-      background: #fff;
+  }
+          
+  .feedTableItem {
+    display:flex;
+    flex-flow: row nowrap;
+    padding: 8px;
+
+    &:nth-child(even) {
+      background: #f4fff3;
     }
-    
-    .feedTableItem {
-      &:nth-child(even) {
-        background: #f4fff3;
-      }
-
-      display:flex;
-      flex-flow: row nowrap;
-      padding: 8px;
-
-      .feedTableData {
-        width: 20%;
-        font-size: 0.9em;
-      }     
-
-      .date {
-        font-size: .8em;
-        color: #777;
-      }
+  
+    .feedTableData {
+      width: 20%;
+      font-size: 0.9em;
+    }     
+  
+    .date {
+      font-size: .8em;
+      color: #777;
     }
+  }
+
+  .label {
+    border: 1px solid $secondary-color;
+    border-bottom: none;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    color: $secondary-color;
+    width: 784px;
+    margin-top: 10px;
+    background: #fff;
   }
 }

@@ -6,6 +6,7 @@ export const LOGOUT = 'LOGOUT';
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const LOAD_PROFILE = 'LOAD_PROFILE';
 export const GENERATE_KEY = 'GENERATE_KEY';
+export const LOAD_CLIENT = 'LOAD_CLIENT';
 
 const proxy = "";
 
@@ -38,7 +39,7 @@ export const login = client => {
       .then(res => {
         dispatch({
           type: LOGIN,
-          payload: res.username
+          payload: res
         });
 
         return true
@@ -151,6 +152,24 @@ export const generateAPIKey = () => {
         dispatch({
           type: GENERATE_KEY,
           payload: data
+        });
+
+        return true;
+      })
+      .catch(err => false);
+  }
+};
+
+export const getClient = (clientName) => {
+  return dispatch => {
+    return fetch(`/api/${clientName}`)
+      .then(res => {
+        if (res.status !== 200) { throw new Error('Error loading client record'); }
+        return res.json();
+      }).then(data => {
+        dispatch({
+          type: LOAD_CLIENT,
+          payload: data.clients[0]
         });
 
         return true;

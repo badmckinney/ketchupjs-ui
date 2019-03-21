@@ -22,7 +22,9 @@ const Header = (props) => {
       <div className="btn-wrapper">
         {props.currentUser ?
           <>
-            <button className="dashboard">Dashboard</button>
+            <Link to={`/${props.name}`}>
+              <button className="dashboard">Dashboard</button>
+            </Link>
             <LogoutButton />
           </>
           :
