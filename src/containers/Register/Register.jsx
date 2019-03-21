@@ -27,7 +27,6 @@ class Register extends Component {
       const uniqueName = this.props.checkUniqueName(this.state.name);
 
       Promise.all([uniqueUsername, uniqueName]).then(values => {
-        console.log(values);
         if (values[0] === true && values[1] === true) {
           this.setState({ isUnique: true, errorMessage: '' });
         } else {
@@ -42,6 +41,7 @@ class Register extends Component {
   handleInputOnChange(e) {
     const name = e.target.name;
     const value = e.target.value;
+
     this.setState({ [name]: value }, () => {
       this.checkUnique();
 
@@ -50,7 +50,6 @@ class Register extends Component {
       } else {
         this.setState({ isValid: false });
       }
-      console.log(this.state.isUnique);
     });
   }
 
