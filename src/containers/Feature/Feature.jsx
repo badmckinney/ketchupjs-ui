@@ -23,15 +23,15 @@ class Feature extends Component {
       <>
         {this.props.feature[0] ?
           <div className="featureContainer">
-            <div>Recent Recordings</div>
+            <div className="heading">Recent Recordings</div>
+            <li className="feedTableItem label">
+              <div className="feedTableData">Program Name</div>
+              <div className="feedTableData">Username</div>
+              <div className="feedTableData">Metric</div>
+              <div className="feedTableData">Occurences</div>
+              <div className="feedTableData">Time</div>
+            </li>
             <ul className="feedTable">
-              <li className="feedTableItem label">
-                <div className="feedTableData">Program Name</div>
-                <div className="feedTableData">Username</div>
-                <div className="feedTableData">Metric</div>
-                <div className="feedTableData">Occurences</div>
-                <div className="feedTableData">Time</div>
-              </li>
               <FeedTable data={this.props.feature} />
             </ul>
           </div>

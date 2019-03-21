@@ -35,7 +35,7 @@ class App extends Component {
       <div className="app">
         <Router>
           <>
-            <Header currentUser={this.props.currentUser} />
+            <Header currentUser={this.props.currentUser} name={this.props.name} />
             <Switch>
               <Route
                 exact={true}
@@ -89,7 +89,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    name: state.name
   };
 };
 

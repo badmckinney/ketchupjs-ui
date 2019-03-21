@@ -6,7 +6,8 @@ html {
       .app {
         .header {
           .btn-wrapper {
-            .logout {
+            .logout,
+            .dashboard {
               height: 40px;
               width: 80px;
               border: 1px solid $secondary-color;
@@ -16,9 +17,15 @@ html {
               font-size: 1em;
               font-weight: 600;
               transition: background-color 0.25s ease-in-out;
+              margin-left: 20px;
             }
 
-            .logout:hover {
+            .dashboard {
+              width: 100px;
+            }
+
+            .logout:hover,
+            .dashboard:hover {
               background: $secondary-color;
               cursor: pointer;
             }

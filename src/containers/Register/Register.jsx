@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Register.scss';
-import { register } from '../../actions/index';
+import { register, checkUniqueUsername, checkUniqueName } from '../../actions/index';
 
 class Register extends Component {
   constructor(props) {
@@ -10,22 +10,62 @@ class Register extends Component {
     this.state = {
       name: '',
       username: '',
-      password: ''
+      password: '',
+      errorMessage: '',
+      isValid: false,
+      isUnique: false
     };
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkUnique = this.checkUnique.bind(this);
+  }
+
+  checkUnique() {
+    if (this.state.name.length > 5 && this.state.username.length > 5) {
+      const uniqueUsername = this.props.checkUniqueUsername(this.state.username);
+      const uniqueName = this.props.checkUniqueName(this.state.name);
+
+      Promise.all([uniqueUsername, uniqueName]).then(values => {
+        if (values[0] === true && values[1] === true) {
+          this.setState({ isUnique: true, errorMessage: '' });
+        }
+      });
+    }
   }
 
   handleInputOnChange(e) {
     const name = e.target.name;
     const value = e.target.value;
-
     this.setState({ [name]: value });
+
+    this.checkUnique();
+
+    if (this.state.password.length > 5 && this.state.username.length > 5) {
+      this.setState({ isValid: true, errorMessage: '' });
+    } else {
+      this.setState({ isValid: false });
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
+
+    if (!this.state.name || !this.state.username || !this.state.password) {
+      this.setState({ errorMessage: 'Please fill out all fields' });
+      return false;
+    }
+
+    if (!this.state.isValid) {
+      this.setState({ errorMessage: 'Username and password must have a length of 6' });
+      return false;
+    }
+
+    if (!this.state.isUnique) {
+      this.setState({ errorMessage: 'Username or Company name taken' });
+      return false
+    }
+
     const newClient = this.state;
     this.props.register(newClient);
     this.props.close();
@@ -60,12 +100,10 @@ class Register extends Component {
             required />
 
           <div className="btn-container">
-            <button className="btn" onClick={this.handleSubmit}>
-              Register
-            </button>
+            <button className="btn" onClick={this.handleSubmit}>Register</button>
           </div>
-          <div className="login-here">
-            Already have an account? Login
+          <div className="error">
+            {this.state.errorMessage}
           </div>
         </form>
       </div>
@@ -75,7 +113,9 @@ class Register extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    register: newClient => dispatch(register(newClient))
+    register: newClient => dispatch(register(newClient)),
+    checkUniqueUsername: username => dispatch(checkUniqueUsername(username)),
+    checkUniqueName: name => dispatch(checkUniqueName(name))
   }
 }
 

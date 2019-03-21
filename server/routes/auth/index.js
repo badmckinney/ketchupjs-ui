@@ -38,12 +38,46 @@ router.post('/auth/register', (req, res) => {
 });
 
 router.post('/auth/login', passport.authenticate('local'), (req, res) => {
-  res.json({ success: true, username: req.user.username });
+  res.json({ success: true, username: req.user.username, name: req.user.name });
 });
 
 router.post('/auth/logout', (req, res) => {
   req.logout();
   res.send({ success: true });
+});
+
+/************************
+ *  VALIDATION
+ ************************/
+
+router.get('/auth/validate/:username', (req, res) => {
+  const username = req.params.username;
+
+  Client.where({ username: username })
+    .fetch()
+    .then(client => {
+      if (client) {
+        return res.json({ unique: false });
+      }
+
+      return res.json({ unique: true });
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+router.get('/auth/validate/:name', (req, res) => {
+  const name = req.params.name;
+
+  Client.where({ name: name })
+    .fetch()
+    .then(client => {
+      if (client) {
+        return res.json({ unique: false })
+      }
+
+      return res.json({ unique: true });
+    })
+    .catch(err => res.status(500).json(err));
 });
 
 module.exports = router;
