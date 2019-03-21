@@ -27,25 +27,31 @@ class Register extends Component {
       const uniqueName = this.props.checkUniqueName(this.state.name);
 
       Promise.all([uniqueUsername, uniqueName]).then(values => {
+        console.log(values);
         if (values[0] === true && values[1] === true) {
           this.setState({ isUnique: true, errorMessage: '' });
+        } else {
+          this.setState({ isUnique: false });
         }
       });
+    } else {
+      this.setState({ isUnique: false });
     }
   }
 
   handleInputOnChange(e) {
     const name = e.target.name;
     const value = e.target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      this.checkUnique();
 
-    this.checkUnique();
-
-    if (this.state.password.length > 5 && this.state.username.length > 5) {
-      this.setState({ isValid: true, errorMessage: '' });
-    } else {
-      this.setState({ isValid: false });
-    }
+      if (this.state.password.length > 5 && this.state.username.length > 5) {
+        this.setState({ isValid: true, errorMessage: '' });
+      } else {
+        this.setState({ isValid: false });
+      }
+      console.log(this.state.isUnique);
+    });
   }
 
   handleSubmit(e) {
