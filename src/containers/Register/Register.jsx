@@ -22,7 +22,7 @@ class Register extends Component {
   }
 
   checkUnique() {
-    if (this.state.name.length > 5 && this.state.username.length > 5) {
+    if (this.state.name.length > 0 && this.state.username.length > 5) {
       const uniqueUsername = this.props.checkUniqueUsername(this.state.username);
       const uniqueName = this.props.checkUniqueName(this.state.name);
 
