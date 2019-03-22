@@ -32,8 +32,12 @@ class EditProfile extends Component {
       Promise.all([uniqueUsername, uniqueName]).then(values => {
         if (values[0] === true && values[1] === true) {
           this.setState({ isUnique: true, errorMessage: '' });
+        } else {
+          this.setState({ isUnique: false });
         }
       });
+    } else {
+      this.setState({ isUnique: false });
     }
   }
 
@@ -48,15 +52,15 @@ class EditProfile extends Component {
         this.setState({ public: false });
       }
     } else {
-      this.setState({ [name]: value });
-    }
+      this.setState({ [name]: value }, () => {
+        this.checkUnique();
 
-    this.checkUnique();
-
-    if (this.state.username.length > 5) {
-      this.setState({ isValid: true, errorMessage: '' });
-    } else {
-      this.setState({ isValid: false });
+        if (this.state.username.length > 5) {
+          this.setState({ isValid: true, errorMessage: '' });
+        } else {
+          this.setState({ isValid: false });
+        }
+      });
     }
   }
 

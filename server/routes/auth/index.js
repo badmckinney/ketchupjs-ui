@@ -50,7 +50,7 @@ router.post('/auth/logout', (req, res) => {
  *  VALIDATION
  ************************/
 
-router.get('/auth/validate/:username', (req, res) => {
+router.get('/auth/validate/username/:username', (req, res) => {
   const username = req.params.username;
 
   Client.where({ username: username })
@@ -65,7 +65,7 @@ router.get('/auth/validate/:username', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-router.get('/auth/validate/:name', (req, res) => {
+router.get('/auth/validate/name/:name', (req, res) => {
   const name = req.params.name;
 
   Client.where({ name: name })

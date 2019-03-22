@@ -5,6 +5,7 @@ $overlay-color: rgba(0, 0, 0, 0.6);
 html {
   width: calc(100vw-10px);
   min-height: 100vh;
+  overflow-x: hidden;
 
   body {
     min-height: 100vh;
