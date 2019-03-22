@@ -14,7 +14,8 @@ class Client extends Component {
     this.state = {
       metrics: [],
       users: [],
-      flip: false
+      flip: false,
+      chartType: 'bar'
     };
 
     this.clickMetric = this.clickMetric.bind(this);
@@ -57,6 +58,15 @@ class Client extends Component {
     }
   }
 
+  flipChart = e => {
+    this.setState({ flip: !this.state.flip })
+  }
+
+  changeChart = e => {
+    this.setState({ chartType: e.target.value });
+
+  }
+
   render() {
     const client = this.props.client
 
@@ -75,7 +85,16 @@ class Client extends Component {
               </ul>
             </div>
             <div className="chartContainer">
-              <Chart users={this.state.users} metrics={this.state.metrics} />
+              <div className="optionsContainer">
+                <button onClick={this.flipChart}>Flip Chart</button>
+                <select onChange={this.changeChart} name="chartType">
+                  <option value="bar">Bar</option>
+                  <option value="horizontal">Horizontal Bar</option>
+                  <option value="line">Line</option>
+                  <option value="radar">Radar</option>
+                </select>
+              </div>
+              <Chart users={this.state.users} metrics={this.state.metrics} flip={this.state.flip} chartType={this.state.chartType} />
             </div>
           </>
           :
