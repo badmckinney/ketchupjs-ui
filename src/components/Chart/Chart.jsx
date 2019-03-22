@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2'
+import { Bar, HorizontalBar, Line, Radar } from 'react-chartjs-2'
 
 const ClientListItem = (props) => {
   const colors = ['#e6194B', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#42d4f4', '#f032e6', '#bfef45', '#fabebe', '#469990', '#e6beff', '#9A6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#a9a9a9'];
@@ -8,6 +8,35 @@ const ClientListItem = (props) => {
   let labels = [];
 
   if (props.flip) {
+    if (props.metrics.length <= 20) {
+      for (let i = 0; i < props.users.length; i++) {
+        labels.push(props.users[i].user_name);
+      };
+
+      for (let i = 0; i < props.metrics.length; i++) {
+        let setData = [];
+        props.users.forEach(user => {
+          let hit = false;
+          user.events.forEach(event => {
+            if (event.metric === props.metrics[i].metric) {
+              setData.push(event.value)
+              hit = true;
+            }
+          });
+          if (!hit) {
+            setData.push(0)
+          }
+        });
+        datasets.push({
+          label: props.metrics[i].metric,
+          backgroundColor: colors[i],
+          fill: false,
+          borderColor: borderColors[i],
+          borderWidth: 1,
+          data: setData
+        })
+      };
+    }
 
   } else {
     if (props.users.length <= 20) {
@@ -32,6 +61,7 @@ const ClientListItem = (props) => {
         datasets.push({
           label: props.users[i].user_name,
           backgroundColor: colors[i],
+          fill: false,
           borderColor: borderColors[i],
           borderWidth: 1,
           data: setData
@@ -67,16 +97,40 @@ const ClientListItem = (props) => {
         null
       }
       {props.flip && props.metrics.length > 20 ?
-        <div className="noInput">Too many users selected! (Max 20)</div>
+        <div className="noInput">Too many metrics selected! (Max 20)</div>
         :
         null
       }
-      <Bar
-        data={chartData}
-        options={chartOptions}
-        height={600}
-        width={900}
-      />
+      {props.chartType === 'bar' ?
+        <Bar
+          data={chartData}
+          options={chartOptions}
+          height={600}
+          width={900}
+        />
+        : props.chartType === 'horizontal' ?
+          <HorizontalBar
+            data={chartData}
+            options={chartOptions}
+            height={600}
+            width={900}
+          />
+          : props.chartType === 'line' ?
+            <Line
+              data={chartData}
+              options={chartOptions}
+              height={600}
+              width={900}
+            />
+            : props.chartType === 'radar' ?
+              <Radar
+                data={chartData}
+                options={chartOptions}
+                height={600}
+                width={900}
+              />
+              : null
+      }
     </div>
   )
 }
