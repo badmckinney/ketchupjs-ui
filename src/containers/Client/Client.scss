@@ -68,6 +68,30 @@
   justify-content: center;
   align-items: center;
   margin: 15px;
+
+  .optionsContainer {
+    margin-bottom: 15px;
+
+    button {
+      margin-right: 10px;
+      width: 75px;
+      height: 25px;
+      background: $secondary-color;
+      border: 1px solid $secondary-color;
+      border-radius: 6px;
+      color: #fff;
+    }
+
+    button:hover {
+      cursor: pointer;
+      background-color: lighten($secondary-color, 10%);
+    }
+
+    select {
+      width: 100px;
+      height: 25px;
+    }
+  }
 }
   .selected {
     background-color: lighten($secondary-color, 30%);
