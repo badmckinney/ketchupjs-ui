@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './EditProfile.scss';
-import { editProfile, checkUniqueName, checkUniqueUsername } from '../../actions';
+import { editProfile, checkUniqueName, checkUniqueUsername, loadProfile } from '../../actions';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class EditProfile extends Component {
   }
 
   checkUnique() {
-    if (this.state.name.length > 5 && this.state.username.length > 5) {
+    if (this.state.name.length > 1 && this.state.username.length > 5) {
       const uniqueUsername = this.props.checkUniqueUsername(this.state.username);
       const uniqueName = this.props.checkUniqueName(this.state.name);
 
@@ -67,7 +67,7 @@ class EditProfile extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    if (!this.state.name || !this.state.username || !this.state.password) {
+    if (!this.state.name || !this.state.username) {
       this.setState({ errorMessage: 'Please fill out all fields' });
       return false;
     }
@@ -83,7 +83,7 @@ class EditProfile extends Component {
     }
 
     const updatedInfo = this.state;
-    this.props.editProfile(updatedInfo);
+    this.props.editProfile(updatedInfo).then(() => this.props.loadProfile());
     this.props.close();
   }
 
@@ -135,6 +135,7 @@ class EditProfile extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     editProfile: updatedInfo => dispatch(editProfile(updatedInfo)),
+    loadProfile: () => dispatch(loadProfile()),
     checkUniqueUsername: username => dispatch(checkUniqueUsername(username)),
     checkUniqueName: name => dispatch(checkUniqueName(name))
   }
