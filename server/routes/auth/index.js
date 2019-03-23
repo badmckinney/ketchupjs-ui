@@ -39,7 +39,6 @@ router.post('/auth/register', (req, res) => {
 
 router.post('/auth/login', passport.authenticate('local'), (req, res) => {
   res.json({ success: true, username: req.user.username, name: req.user.name });
-  console.log('headers', res.getHeaders());
 });
 
 router.post('/auth/logout', (req, res) => {
@@ -53,12 +52,10 @@ router.post('/auth/logout', (req, res) => {
 
 router.get('/auth/validate/username/:username', (req, res) => {
   const username = req.params.username;
-  console.log(username);
 
   Client.where({ username: username })
     .fetch()
     .then(client => {
-      console.log('username', client);
       if (client && client.id !== req.user.id) {
         return res.json({ unique: false });
       }
@@ -70,12 +67,10 @@ router.get('/auth/validate/username/:username', (req, res) => {
 
 router.get('/auth/validate/name/:name', (req, res) => {
   const name = req.params.name;
-  console.log(name);
 
   Client.where({ name: name })
     .fetch()
     .then(client => {
-      console.log('name', client);
       if (client && client.id !== req.user.id) {
         return res.json({ unique: false })
       }
