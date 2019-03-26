@@ -1,0 +1,119 @@
+@import '../../index.scss';
+
+.clientContainer {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+  height: calc(100%-100px);
+
+  .listOptions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    min-width: 200px;
+    margin: 10px;
+  }
+
+  .searchBox {
+    width: 70%;
+    margin: 15px;
+
+    input{
+      width: 100%;
+      height: 25px;
+      border-radius: 5px;
+    }
+  }
+
+  .listLabel {
+    font-family: sans-serif;
+    text-transform: uppercase;
+    color: $secondary-color;
+    font-weight: 600;
+    font-size: 0.8em;
+  }
+
+  .listContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    width: 85%;
+    overflow-y: scroll;
+    min-height: 200px;
+    max-height: 320px;
+    padding: 0;
+    border-radius: 6px;
+    border: 1px solid $secondary-color;
+    font-size: 16px;
+    font-family: sans-serif;
+    
+    .listItem {
+      padding: 10px 20px;
+      text-decoration: none;
+      color: black;
+      border-bottom: 1px solid $secondary-color;
+    }
+    
+    .listItem:hover{
+      background-color: lighten($secondary-color, 30%);
+      cursor: pointer;
+    }
+  }
+
+.chartContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+
+  .optionsContainer {
+    margin-bottom: 15px;
+
+    button {
+      margin-right: 10px;
+      width: 75px;
+      height: 25px;
+      background: $secondary-color;
+      border: 1px solid $secondary-color;
+      border-radius: 6px;
+      color: #fff;
+    }
+
+    button:hover {
+      cursor: pointer;
+      background-color: lighten($secondary-color, 10%);
+    }
+
+    select {
+      width: 100px;
+      height: 25px;
+    }
+  }
+}
+  .selected {
+    background-color: lighten($secondary-color, 30%);
+  }
+
+  .chartContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+
+    .chart {
+      max-height: 700px;
+    }
+  }
+}
+
+.noInput{
+  text-align: center;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  color: $secondary-color;
+  font-weight: 600;
+  font-size: 0.8em;
+}

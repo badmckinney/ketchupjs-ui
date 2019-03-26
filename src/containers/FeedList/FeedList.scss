@@ -1,0 +1,53 @@
+@import '../../index.scss';
+
+.nameListContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33%;
+  min-width: 350px;
+}
+
+.searchBox{
+  width: 70%;
+  margin: 15px;
+  
+  input{
+    box-sizing: border-box;
+    width: 100%;
+    height: 35px;
+    font-size: 0.8em;
+    border-radius: 6px;
+    border: 1px solid $secondary-color;
+    padding-left: 15px;
+  }
+}
+
+.clientsList {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  overflow-y: scroll;
+  min-height: 40%;
+  height: 500px;
+  padding: 0;
+  border-radius: 5px;
+  margin-top: 0;
+  border: 1px solid $secondary-color;
+  font-size: 16px;
+  font-family: sans-serif;
+  
+  .clientListItem {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid $secondary-color;
+  }
+  .clientListItem:hover{
+    background-color: lighten($secondary-color, 30%);
+    cursor: pointer;
+  }
+}
+
+
