@@ -1,7 +1,8 @@
 # KetchupJS
 
-KetchupJS is a lightweight B2B tool for tracking and analyzing data. This repository is the frontend website to 
-accompany our library, which is published on [npmjs.com](npmjs.com)
+KetchupJS is a lightweight B2B tool for tracking and analyzing data. It utilizes a serverless data pipeline which was built
+with Amazon Web Services Lambda Functions, Simple Queue Service (SQS), Relational Database Service (RDS), EC2 instance,
+and S3 bucket. This repository is the frontend website to accompany our library, which is published on [npmjs.com](npmjs.com)
 
 ## Features
 
