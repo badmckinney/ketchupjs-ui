@@ -108,12 +108,10 @@ export const loadProfile = () => {
   return dispatch => {
     return fetch('/api/profile')
       .then(res => {
-        console.log('res', res);
         if (res.status !== 200) { throw new Error('Error fetching profile'); }
         return res.json();
       })
       .then(data => {
-        console.log('data', data);
         dispatch({
           type: LOAD_PROFILE,
           payload: data
@@ -214,7 +212,6 @@ export const checkUniqueName = name => {
         return res.json();
       })
       .then(res => {
-        console.log('action', res);
         if (res.unique) {
           return true;
         }
